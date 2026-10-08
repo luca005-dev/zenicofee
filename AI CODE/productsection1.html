@@ -1,0 +1,2336 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Character encoding -->
+    <meta charset="UTF-8">
+
+    <!-- Makes the website responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AgriProducts | Agricultural Information</title>
+
+
+    <style>
+        /* =========================================
+           1. BASIC RESET
+           ========================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7f1;
+            color: #1b2b18;
+        }
+
+
+        /* =========================================
+           2. PRODUCTS SECTION
+           ========================================= */
+
+        .products-section {
+
+            padding: 100px 6%;
+
+            min-height: 100vh;
+
+            overflow: hidden;
+        }
+
+
+        /* =========================================
+           3. SECTION INTRODUCTION
+           ========================================= */
+
+        .section-header {
+
+            max-width: 750px;
+
+            margin: 0 auto 50px;
+
+            text-align: center;
+        }
+
+
+        .section-label {
+
+            color: #5c9e35;
+
+            font-size: 0.85rem;
+
+            font-weight: bold;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 15px;
+
+            display: block;
+        }
+
+
+        .section-header h2 {
+
+            font-size: clamp(2.3rem, 5vw, 4rem);
+
+            margin-bottom: 20px;
+        }
+
+
+        .section-header p {
+
+            color: #66705f;
+
+            line-height: 1.8;
+
+            font-size: 1.05rem;
+        }
+
+
+        /* =========================================
+           4. CATEGORY BUTTONS
+           ========================================= */
+
+        .category-container {
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            margin-bottom: 55px;
+        }
+
+
+        .category-btn {
+
+            border: 1px solid #cbd5c5;
+
+            background: white;
+
+            color: #40503b;
+
+            padding: 12px 22px;
+
+            border-radius: 50px;
+
+            cursor: pointer;
+
+            font-size: 0.95rem;
+
+            transition: all 0.3s ease;
+        }
+
+
+        /* Hover effect */
+
+        .category-btn:hover {
+
+            transform: translateY(-3px);
+
+            border-color: #6aa842;
+        }
+
+
+        /* Currently selected category */
+
+        .category-btn.active {
+
+            background: #4d8c2d;
+
+            color: white;
+
+            border-color: #4d8c2d;
+        }
+
+
+        /* =========================================
+           5. PRODUCT GRID
+           ========================================= */
+
+        .product-grid {
+
+            max-width: 1250px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 30px;
+        }
+
+
+        /* =========================================
+           6. PRODUCT CARD
+           ========================================= */
+
+        .product-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.08);
+
+            /* Initial state for scroll animation */
+
+            opacity: 0;
+
+            transform:
+                translateY(100px) scale(0.95);
+
+            transition:
+                opacity 0.7s ease,
+                transform 0.7s ease,
+                box-shadow 0.3s ease;
+
+        }
+
+
+        /* Card becomes visible */
+
+        .product-card.show {
+
+            opacity: 1;
+
+            transform:
+                translateY(0) scale(1);
+        }
+
+
+        /* Card hover */
+
+        .product-card:hover {
+
+            transform:
+                translateY(-10px) scale(1.01);
+
+            box-shadow:
+                0 20px 45px rgba(0, 0, 0, 0.15);
+        }
+
+
+        /* =========================================
+           7. PRODUCT IMAGE
+           ========================================= */
+
+        .product-image {
+
+            height: 230px;
+
+            overflow: hidden;
+
+            position: relative;
+        }
+
+
+        .product-image img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            transition:
+                transform 0.6s ease;
+        }
+
+
+        /* Zoom image when card is hovered */
+
+        .product-card:hover .product-image img {
+
+            transform: scale(1.08);
+        }
+
+
+        /* =========================================
+           8. CATEGORY BADGE
+           ========================================= */
+
+        .product-badge {
+
+            position: absolute;
+
+            top: 15px;
+
+            left: 15px;
+
+            background: rgba(255, 255, 255, 0.9);
+
+            color: #467a2b;
+
+            padding: 7px 12px;
+
+            border-radius: 30px;
+
+            font-size: 0.75rem;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================================
+           9. PRODUCT INFORMATION
+           ========================================= */
+
+        .product-info {
+
+            padding: 25px;
+        }
+
+
+        .product-info h3 {
+
+            font-size: 1.5rem;
+
+            margin-bottom: 10px;
+        }
+
+
+        .product-info p {
+
+            color: #697366;
+
+            line-height: 1.7;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* Product facts */
+
+        .product-facts {
+
+            display: flex;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 20px;
+        }
+
+
+        .fact {
+
+            background: #eef4e9;
+
+            color: #4c7040;
+
+            padding: 6px 10px;
+
+            border-radius: 5px;
+
+            font-size: 0.75rem;
+        }
+
+
+        /* =========================================
+           10. LEARN MORE BUTTON
+           ========================================= */
+
+        .learn-more {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: #4d8c2d;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            transition: gap 0.3s ease;
+        }
+
+
+        .learn-more:hover {
+
+            gap: 15px;
+        }
+
+
+        /* =========================================
+           11. SECOND INFORMATION SECTION
+           ========================================= */
+
+        .information-section {
+
+            margin-top: 120px;
+
+            max-width: 1000px;
+
+            margin-left: auto;
+
+            margin-right: auto;
+
+            text-align: center;
+
+            padding: 70px 30px;
+
+            background: #1f3519;
+
+            color: white;
+
+            border-radius: 25px;
+        }
+
+
+        .information-section h2 {
+
+            font-size: 2.5rem;
+
+            margin-bottom: 20px;
+        }
+
+
+        .information-section p {
+
+            max-width: 700px;
+
+            margin: auto;
+
+            line-height: 1.8;
+
+            color: #d7e3d0;
+        }
+
+
+        /* =========================================
+           12. MOBILE RESPONSIVENESS
+           ========================================= */
+
+        @media (max-width: 900px) {
+
+            .product-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            .products-section {
+
+                padding: 70px 5%;
+            }
+
+
+            .product-grid {
+
+                grid-template-columns: 1fr;
+
+                gap: 25px;
+            }
+
+
+            .product-image {
+
+                height: 220px;
+            }
+
+
+            .category-container {
+
+                justify-content: flex-start;
+
+                overflow-x: auto;
+
+                flex-wrap: nowrap;
+
+                padding-bottom: 10px;
+            }
+
+
+            .category-btn {
+
+                flex-shrink: 0;
+            }
+
+
+            .information-section h2 {
+
+                font-size: 2rem;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         PRODUCTS SECTION
+         ========================================= -->
+
+    <section class="products-section" id="products">
+
+
+        <!-- SECTION INTRODUCTION -->
+
+        <div class="section-header">
+
+            <span class="section-label">
+                OUR PRODUCTS
+            </span>
+
+            <h2>
+                Discover Better Agriculture
+            </h2>
+
+            <p>
+                Explore agricultural products and discover
+                useful information about crops, seeds,
+                fertilizers and farming equipment.
+            </p>
+
+        </div>
+
+
+        <!-- =====================================
+             CATEGORY FILTERS
+             ===================================== -->
+
+        <div class="category-container">
+
+            <button class="category-btn active" data-category="all">
+
+                All
+
+            </button>
+
+
+            <button class="category-btn" data-category="crops">
+
+                Crops
+
+            </button>
+
+
+            <button class="category-btn" data-category="seeds">
+
+                Seeds
+
+            </button>
+
+
+            <button class="category-btn" data-category="fertilizer">
+
+                Fertilizers
+
+            </button>
+
+
+            <button class="category-btn" data-category="equipment">
+
+                Equipment
+
+            </button>
+
+        </div>
+
+
+        <!-- =====================================
+             PRODUCT GRID
+             ===================================== -->
+
+        <div class="product-grid">
+
+
+            <!-- PRODUCT 1 -->
+
+            <article class="product-card" data-category="crops">
+
+                <div class="product-image">
+
+                    <img src="https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=900&q=80"
+                        alt="Maize crop">
+
+                    <span class="product-badge">
+                        Crop
+                    </span>
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <h3>
+                        Maize
+                    </h3>
+
+                    <p>
+                        A major food and commercial crop
+                        grown across many agricultural
+                        regions.
+                    </p>
+
+
+                    <div class="product-facts">
+
+                        <span class="fact">
+                            3–4 months
+                        </span>
+
+                        <span class="fact">
+                            High yield
+                        </span>
+
+                    </div>
+
+
+                    <a href="#" class="learn-more">
+
+                        Learn More →
+
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- PRODUCT 2 -->
+
+            <article class="product-card" data-category="crops">
+
+                <div class="product-image">
+
+                    <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=900&q=80"
+                        alt="Coffee beans">
+
+                    <span class="product-badge">
+                        Crop
+                    </span>
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <h3>
+                        Coffee
+                    </h3>
+
+                    <p>
+                        A valuable cash crop with strong
+                        economic importance for farmers
+                        and communities.
+                    </p>
+
+
+                    <div class="product-facts">
+
+                        <span class="fact">
+                            Cash crop
+                        </span>
+
+                        <span class="fact">
+                            Export
+                        </span>
+
+                    </div>
+
+
+                    <a href="#" class="learn-more">
+
+                        Learn More →
+
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- PRODUCT 3 -->
+
+            <article class="product-card" data-category="seeds">
+
+                <div class="product-image">
+
+                    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=80"
+                        alt="Agricultural field">
+
+                    <span class="product-badge">
+                        Seeds
+                    </span>
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <h3>
+                        Hybrid Seeds
+                    </h3>
+
+                    <p>
+                        Improved seed varieties designed
+                        to
+                        ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        ```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Agricultural Products</title>
+
+
+    <style>
+
+        /* ==============================
+           BASIC RESET
+           ============================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+
+            background: #f2f6ef;
+
+            color: #20351b;
+
+            min-height: 100vh;
+        }
+
+
+        /* ==============================
+           PRODUCT SECTION
+           ============================== */
+
+        .products {
+
+            width: 100%;
+
+            padding: 80px 6%;
+        }
+
+
+        /* Section heading */
+
+        .section-heading {
+
+            max-width: 700px;
+
+            margin: 0 auto 50px;
+
+            text-align: center;
+        }
+
+
+        .section-heading span {
+
+            color: #609b3b;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            letter-spacing: 3px;
+        }
+
+
+        .section-heading h1 {
+
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+
+            margin: 15px 0;
+        }
+
+
+        .section-heading p {
+
+            color: #687265;
+
+            line-height: 1.7;
+        }
+
+
+        /* ==============================
+           CATEGORY SELECTOR
+           ============================== */
+
+        .categories {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            margin-bottom: 45px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .category {
+
+            border: 1px solid #ccd7c7;
+
+            background: white;
+
+            color: #40533a;
+
+            padding: 11px 20px;
+
+            border-radius: 30px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .category:hover {
+
+            transform: translateY(-3px);
+        }
+
+
+        .category.active {
+
+            background: #518b31;
+
+            color: white;
+
+            border-color: #518b31;
+        }
+
+
+        /* ==============================
+           SCROLLABLE PRODUCT CONTAINER
+           ============================== */
+
+        .product-container {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            display: flex;
+
+            gap: 25px;
+
+            /*
+                Enables horizontal scrolling.
+            */
+
+            overflow-x: auto;
+
+            /*
+                Allows smooth scrolling.
+            */
+
+            scroll-behavior: smooth;
+
+            /*
+                Adds spacing at the bottom
+                for the scrollbar.
+            */
+
+            padding: 10px 5px 30px;
+        }
+
+
+        /*
+            Hide the scrollbar while keeping
+            scrolling functionality.
+        */
+
+        .product-container::-webkit-scrollbar {
+
+            height: 8px;
+        }
+
+
+        .product-container::-webkit-scrollbar-thumb {
+
+            background: #83aa6e;
+
+            border-radius: 20px;
+        }
+
+
+        /* ==============================
+           PRODUCT CARD
+           ============================== */
+
+        .product-card {
+
+            /*
+                Prevent cards from shrinking.
+            */
+
+            flex: 0 0 340px;
+
+            background: white;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.08);
+
+            /*
+                Initial animation state.
+            */
+
+            opacity: 0;
+
+            transform: translateY(50px);
+
+            transition:
+                opacity 0.7s ease,
+                transform 0.7s ease,
+                box-shadow 0.3s ease;
+        }
+
+
+        /*
+            JavaScript adds this class when
+            the card enters the viewport.
+        */
+
+        .product-card.visible {
+
+            opacity: 1;
+
+            transform: translateY(0);
+        }
+
+
+        /*
+            Card hover effect.
+        */
+
+        .product-card:hover {
+
+            transform: translateY(-8px);
+
+            box-shadow:
+                0 20px 45px rgba(0,0,0,0.15);
+        }
+
+
+        /* ==============================
+           PRODUCT IMAGE
+           ============================== */
+
+        .product-image {
+
+            height: 220px;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        .product-image img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: transform 0.5s ease;
+        }
+
+
+        /*
+            Zoom image when hovering.
+        */
+
+        .product-card:hover
+        .product-image img {
+
+            transform: scale(1.08);
+        }
+
+
+        /* ==============================
+           PRODUCT CATEGORY BADGE
+           ============================== */
+
+        .badge {
+
+            position: absolute;
+
+            top: 15px;
+
+            left: 15px;
+
+            padding: 7px 13px;
+
+            background: rgba(255,255,255,0.92);
+
+            color: #4f8730;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+
+        /* ==============================
+           PRODUCT INFORMATION
+           ============================== */
+
+        .product-info {
+
+            padding: 25px;
+        }
+
+
+        .product-info h2 {
+
+            margin-bottom: 12px;
+
+            font-size: 1.6rem;
+        }
+
+
+        .description {
+
+            color: #687265;
+
+            line-height: 1.7;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* ==============================
+           PRODUCT FACTS
+           ============================== */
+
+        .facts {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 10px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .fact {
+
+            background: #eef4e9;
+
+            padding: 12px;
+
+            border-radius: 8px;
+        }
+
+
+        .fact strong {
+
+            display: block;
+
+            font-size: 12px;
+
+            color: #71806a;
+
+            margin-bottom: 4px;
+        }
+
+
+        .fact span {
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+
+        /* ==============================
+           LEARN MORE BUTTON
+           ============================== */
+
+        .learn-more {
+
+            border: none;
+
+            background: #518b31;
+
+            color: white;
+
+            padding: 12px 20px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .learn-more:hover {
+
+            background: #3d7024;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* ==============================
+           PRODUCT INFORMATION MODAL
+           ============================== */
+
+        .modal {
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0,0,0,0.65);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition: 0.3s;
+
+            z-index: 100;
+        }
+
+
+        /*
+            JavaScript adds .open to
+            display the modal.
+        */
+
+        .modal.open {
+
+            opacity: 1;
+
+            visibility: visible;
+        }
+
+
+        .modal-content {
+
+            background: white;
+
+            max-width: 650px;
+
+            width: 100%;
+
+            max-height: 85vh;
+
+            overflow-y: auto;
+
+            border-radius: 20px;
+
+            padding: 35px;
+
+            position: relative;
+        }
+
+
+        .modal-content h2 {
+
+            margin-bottom: 15px;
+
+            font-size: 2rem;
+        }
+
+
+        .modal-content p {
+
+            color: #65705f;
+
+            line-height: 1.8;
+
+            margin-bottom: 20px;
+        }
+
+
+        .modal-content h3 {
+
+            margin: 20px 0 10px;
+        }
+
+
+        .modal-content ul {
+
+            padding-left: 20px;
+
+            line-height: 1.8;
+        }
+
+
+        /* Close button */
+
+        .close {
+
+            position: absolute;
+
+            top: 15px;
+
+            right: 20px;
+
+            border: none;
+
+            background: none;
+
+            font-size: 30px;
+
+            cursor: pointer;
+
+            color: #555;
+        }
+
+
+        /* ==============================
+           MOBILE
+           ============================== */
+
+        @media (max-width: 600px) {
+
+            .products {
+
+                padding: 60px 5%;
+            }
+
+
+            .product-card {
+
+                flex: 0 0 85vw;
+            }
+
+
+            .product-container {
+
+                gap: 18px;
+            }
+
+
+            .category {
+
+                padding: 10px 16px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ===================================
+         PRODUCT SECTION
+         =================================== -->
+
+    <section class="products">
+
+
+        <!-- SECTION HEADING -->
+
+        <div class="section-heading">
+
+            <span>
+                AGRICULTURAL PRODUCTS
+            </span>
+
+            <h1>
+                Explore Our Products
+            </h1>
+
+            <p>
+                Learn about different agricultural products,
+                their characteristics, growing conditions,
+                uses and benefits.
+            </p>
+
+        </div>
+
+
+        <!-- ===================================
+             CATEGORY SELECTOR
+             =================================== -->
+
+        <div class="categories">
+
+            <button
+                class="category active"
+                data-category="all">
+
+                All
+
+            </button>
+
+
+            <button
+                class="category"
+                data-category="crops">
+
+                Crops
+
+            </button>
+
+
+            <button
+                class="category"
+                data-category="cash-crops">
+
+                Cash Crops
+
+            </button>
+
+
+            <button
+                class="category"
+                data-category="vegetables">
+
+                Vegetables
+
+            </button>
+
+
+            <button
+                class="category"
+                data-category="livestock">
+
+                Livestock
+
+            </button>
+
+        </div>
+
+
+        <!-- ===================================
+             SCROLLABLE PRODUCT LIST
+             =================================== -->
+
+        <div class="product-container">
+
+
+            <!-- ================================
+                 PRODUCT 1
+                 ================================= -->
+
+            <article
+                class="product-card"
+                data-category="crops">
+
+
+                <div class="product-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=900&q=80"
+                        alt="Maize crop">
+
+                    <span class="badge">
+                        Crop
+                    </span>
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <h2>
+                        Maize
+                    </h2>
+
+
+                    <p class="description">
+                        Maize is an important food and
+                        commercial crop used for human
+                        consumption, animal feed and
+                        industrial processing.
+                    </p>
+
+
+                    <div class="facts">
+
+                        <div class="fact">
+
+                            <strong>
+                                Growing Period
+                            </strong>
+
+                            <span>
+                                3–4 months
+                            </span>
+
+                        </div>
+
+
+                        <div class="fact">
+
+                            <strong>
+                                Water
+                            </strong>
+
+                            <span>
+                                Moderate
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="learn-more"
+                        data-product="maize">
+
+                        Learn More
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- ================================
+                 PRODUCT 2
+                 ================================= -->
+
+            <article
+                class="product-card"
+                data-category="cash-crops">
+
+
+                <div class="product-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=900&q=80"
+                        alt="Coffee">
+
+                    <span class="badge">
+                        Cash Crop
+                    </span>
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <h2>
+                        Coffee
+                    </h2>
+
+
+                    <p class="description">
+                        Coffee is a major agricultural
+                        cash crop valued for its beans,
+                        which are processed and roasted
+                        to produce coffee beverages.
+                    </p>
+
+
+                    <div class="facts">
+
+                        <div class="fact">
+
+                            <strong>
+                                Type
+                            </strong>
+
+                            <span>
+                                Cash Crop
+                            </span>
+
+                        </div>
+
+
+                        <div class="fact">
+
+                            <strong>
+                                Climate
+                            </strong>
+
+                            <span>
+                                Moderate
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="learn-more"
+                        data-product="coffee">
+
+                        Learn More
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- ================================
+                 PRODUCT 3
+                 ================================= -->
+
+            <article
+                class="product-card"
+                data-category="vegetables">
+
+
+                <div class="product-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1592841200221-a6898f307baa?auto=format&fit=crop&w=900&q=80"
+                        alt="Tomatoes">
+
+                    <span class="badge">
+                        Vegetable
+                    </span>
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <h2>
+                        Tomatoes
+                    </h2>
+
+
+                    <p class="description">
+                        Tomatoes are widely cultivated
+                        vegetables used fresh and in
+                        sauces, juices and processed foods.
+                    </p>
+
+
+                    <div class="facts">
+
+                        <div class="fact">
+
+                            <strong>
+                                Growing Period
+                            </strong>
+
+                            <span>
+                                2–3 months
+                            </span>
+
+                        </div>
+
+
+                        <div class="fact">
+
+                            <strong>
+                                Water
+                            </strong>
+
+                            <span>
+                                High
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="learn-more"
+                        data-product="tomatoes">
+
+                        Learn More
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- ================================
+                 PRODUCT 4
+                 ================================= -->
+
+            <article
+                class="product-card"
+                data-category="crops">
+
+
+                <div class="product-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=80"
+                        alt="Wheat field">
+
+                    <span class="badge">
+                        Crop
+                    </span>
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <h2>
+                        Wheat
+                    </h2>
+
+
+                    <p class="description">
+                        Wheat is a cereal crop used
+                        extensively in bread, flour,
+                        pasta and other food products.
+                    </p>
+
+
+                    <div class="facts">
+
+                        <div class="fact">
+
+                            <strong>
+                                Type
+                            </strong>
+
+                            <span>
+                                Cereal
+                            </span>
+
+                        </div>
+
+
+                        <div class="fact">
+
+                            <strong>
+                                Main Use
+                            </strong>
+
+                            <span>
+                                Food
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="learn-more"
+                        data-product="wheat">
+
+                        Learn More
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- ================================
+                 PRODUCT 5
+                 ================================= -->
+
+            <article
+                class="product-card"
+                data-category="livestock">
+
+
+                <div class="product-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=900&q=80"
+                        alt="Cattle">
+
+                    <span class="badge">
+                        Livestock
+                    </span>
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <h2>
+                        Dairy Cattle
+                    </h2>
+
+
+                    <p class="description">
+                        Dairy cattle are raised primarily
+                        for milk production and can form
+                        an important part of integrated
+                        farming systems.
+                    </p>
+
+
+                    <div class="facts">
+
+                        <div class="fact">
+
+                            <strong>
+                                Product
+                            </strong>
+
+                            <span>
+                                Milk
+                            </span>
+
+                        </div>
+
+
+                        <div class="fact">
+
+                            <strong>
+                                Feed
+                            </strong>
+
+                            <span>
+                                Forage
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="learn-more"
+                        data-product="cattle">
+
+                        Learn More
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ===================================
+         INFORMATION MODAL
+         =================================== -->
+
+    <div class="modal" id="productModal">
+
+
+        <div class="modal-content">
+
+
+            <button
+                class="close"
+                id="closeModal">
+
+                &times;
+
+            </button>
+
+
+            <h2 id="modalTitle">
+                Product
+            </h2>
+
+
+            <p id="modalDescription">
+                Product information.
+            </p>
+
+
+            <h3>
+                Benefits
+            </h3>
+
+
+            <ul id="modalBenefits">
+            </ul>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================
+         JAVASCRIPT
+         =================================== -->
+
+    <script>
+
+
+        /* =================================
+           PRODUCT CARD SCROLL ANIMATION
+           ================================= */
+
+
+        /*
+            IntersectionObserver watches elements
+            as they enter or leave the screen.
+        */
+
+        const observer =
+            new IntersectionObserver(
+
+                (entries) => {
+
+                    entries.forEach(
+                        (entry) => {
+
+                            /*
+                                Add "visible" when
+                                the card enters the
+                                viewport.
+                            */
+
+                            if (entry.isIntersecting) {
+
+                                entry.target
+                                    .classList
+                                    .add("visible");
+
+                            }
+
+                            /*
+                                Remove "visible" when
+                                the card leaves the
+                                viewport.
+
+                                This means the animation
+                                happens again when the
+                                user scrolls back.
+                            */
+
+                            else {
+
+                                entry.target
+                                    .classList
+                                    .remove("visible");
+
+                            }
+
+                        }
+                    );
+
+                },
+
+                {
+                    /*
+                        Start the animation when
+                        roughly 15% of the card
+                        becomes visible.
+                    */
+
+                    threshold: 0.15
+                }
+
+            );
+
+
+        /*
+            Select every product card.
+        */
+
+        const cards =
+            document.querySelectorAll(
+                ".product-card"
+            );
+
+
+        /*
+            Tell the observer to watch
+            every card.
+        */
+
+        cards.forEach(
+            (card) => observer.observe(card)
+        );
+
+
+        /* =================================
+           CATEGORY FILTERING
+           ================================= */
+
+
+        /*
+            Select all category buttons.
+        */
+
+        const categoryButtons =
+            document.querySelectorAll(
+                ".category"
+            );
+
+
+        /*
+            Add a click event to each
+            category button.
+        */
+
+        categoryButtons.forEach(
+
+            (button) => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        /*
+                            Remove active
+                            state from all
+                            buttons.
+                        */
+
+                        categoryButtons.forEach(
+                            (btn) =>
+                                btn.classList
+                                .remove("active")
+                        );
+
+
+                        /*
+                            Make clicked button active.
+                        */
+
+                        button.classList
+                            .add("active");
+
+
+                        /*
+                            Get selected category.
+                        */
+
+                        const selectedCategory =
+                            button.dataset.category;
+
+
+                        /*
+                            Check every product card.
+                        */
+
+                        cards.forEach(
+                            (card) => {
+
+                                const productCategory =
+                                    card.dataset.category;
+
+
+                                /*
+                                    Display all products
+                                    when "all" is selected.
+                                */
+
+                                if (
+                                    selectedCategory ===
+                                    "all"
+                                ) {
+
+                                    card.style.display =
+                                        "block";
+
+                                }
+
+
+                                /*
+                                    Otherwise only show
+                                    matching products.
+                                */
+
+                                else if (
+                                    productCategory ===
+                                    selectedCategory
+                                ) {
+
+                                    card.style.display =
+                                        "block";
+
+                                }
+
+
+                                /*
+                                    Hide products that
+                                    don't match.
+                                */
+
+                                else {
+
+                                    card.style.display =
+                                        "none";
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =================================
+           PRODUCT INFORMATION
+           ================================= */
+
+
+        /*
+            Product information stored
+            inside JavaScript objects.
+        */
+
+        const products = {
+
+            maize: {
+
+                title: "Maize",
+
+                description:
+                    "Maize is an important cereal crop used for food, animal feed and industrial processing.",
+
+                benefits: [
+                    "Important food crop",
+                    "Can provide animal feed",
+                    "Multiple industrial applications"
+                ]
+
+            },
+
+
+            coffee: {
+
+                title: "Coffee",
+
+                description:
+                    "Coffee is a major cash crop whose beans are processed, roasted and prepared as beverages.",
+
+                benefits: [
+                    "Important export crop",
+                    "Provides income for farmers",
+                    "Strong international market"
+                ]
+
+            },
+
+
+            tomatoes: {
+
+                title: "Tomatoes",
+
+                description:
+                    "Tomatoes are widely cultivated and consumed fresh or processed into sauces, juices and other products.",
+
+                benefits: [
+                    "Fast-growing crop",
+                    "High consumer demand",
+                    "Can be grown in different systems"
+                ]
+
+            },
+
+
+            wheat: {
+
+                title: "Wheat",
+
+                description:
+                    "Wheat is one of the world's major cereal crops and is commonly processed into flour and other food products.",
+
+                benefits: [
+                    "Important food crop",
+                    "Used to produce flour",
+                    "Large range of food applications"
+                ]
+
+            },
+
+
+            cattle: {
+
+                title: "Dairy Cattle",
+
+                description:
+                    "Dairy cattle are raised primarily for milk production and can be integrated with crop farming.",
+
+                benefits: [
+                    "Milk production",
+                    "Manure can support crop production",
+                    "Can diversify farm income"
+                ]
+
+            }
+
+        };
+
+
+        /* =================================
+           MODAL
+           ================================= */
+
+
+        const modal =
+            document.getElementById(
+                "productModal"
+            );
+
+
+        const modalTitle =
+            document.getElementById(
+                "modalTitle"
+            );
+
+
+        const modalDescription =
+            document.getElementById(
+                "modalDescription"
+            );
+
+
+        const modalBenefits =
+            document.getElementById(
+                "modalBenefits"
+            );
+
+
+        const closeModal =
+            document.getElementById(
+                "closeModal"
+            );
+
+
+        /*
+            Select all Learn More buttons.
+        */
+
+        const learnButtons =
+            document.querySelectorAll(
+                ".learn-more"
+            );
+
+
+        /*
+            When a Learn More button
+            is clicked...
+        */
+
+        learnButtons.forEach(
+
+            (button) => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        /*
+                            Get product name
+                            from data-product.
+                        */
+
+                        const productName =
+                            button.dataset.product;
+
+
+                        /*
+                            Retrieve product
+                            information.
+                        */
+
+                        const product =
+                            products[productName];
+
+
+                        /*
+                            Insert information
+                            into modal.
+                        */
+
+                        modalTitle.textContent =
+                            product.title;
+
+
+                        modalDescription.textContent =
+                            product.description;
+
+
+                        /*
+                            Clear previous
+                            benefit list.
+                        */
+
+                        modalBenefits.innerHTML = "";
+
+
+                        /*
+                            Create a list item
+                            for every benefit.
+                        */
+
+                        product.benefits.forEach(
+
+                            (benefit) => {
+
+                                const li =
+                                    document.createElement(
+                                        "li"
+                                    );
+
+                                li.textContent =
+                                    benefit;
+
+                                modalBenefits
+                                    .appendChild(li);
+
+                            }
+
+                        );
+
+
+                        /*
+                            Display modal.
+                        */
+
+                        modal.classList
+                            .add("open");
+
+                    }
+                );
+
+            }
+        );
+
+
+        /*
+            Close modal when
+            close button is clicked.
+        */
+
+        closeModal.addEventListener(
+            "click",
+            () => {
+
+                modal.classList
+                    .remove("open");
+
+            }
+        );
+
+
+        /*
+            Close modal when user
+            clicks outside the content.
+        */
+
+        modal.addEventListener(
+            "click",
+            (event) => {
+
+                if (
+                    event.target === modal
+                ) {
+
+                    modal.classList
+                        .remove("open");
+
+                }
+
+            }
+        );
+
+
+    </script>
+
+
+</body>
+
+</html>
+```

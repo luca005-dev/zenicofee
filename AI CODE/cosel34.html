@@ -1,0 +1,969 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Defines the character encoding -->
+    <meta charset="UTF-8">
+
+    <!-- Makes the page responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Browser tab title -->
+    <title>Accessible Carousel</title>
+
+
+    <style>
+        /* Makes width calculations easier */
+        * {
+            box-sizing: border-box;
+        }
+
+
+        /* Basic page styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            min-height: 100vh;
+            padding: 20px;
+
+            background: #f2f2f2;
+        }
+
+
+        /* Main carousel container */
+        .carousel-container {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+
+        /*
+         * The visible carousel window.
+         */
+        .carousel {
+            width: 100%;
+
+            /* Hide slides outside the visible area */
+            overflow: hidden;
+
+            border-radius: 10px;
+        }
+
+
+        /*
+         * Holds all slides horizontally.
+         */
+        .carousel-track {
+            display: flex;
+            gap: 20px;
+
+            /* Smooth slide animation */
+            transition: transform 0.6s ease;
+        }
+
+
+        /*
+         * Individual slides.
+         */
+        .card {
+            /*
+             * Desktop:
+             * approximately three slides are visible.
+             */
+            flex: 0 0 31%;
+
+            height: 200px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: #333;
+            color: white;
+
+            font-size: 30px;
+
+            border-radius: 10px;
+        }
+
+
+        /*
+         * Gives the active slide a visible outline.
+         *
+         * This helps sighted keyboard users
+         * understand which slide is active.
+         */
+        .card[aria-current="true"] {
+            outline: 4px solid #0066ff;
+            outline-offset: -4px;
+        }
+
+
+        /*
+         * Navigation controls.
+         */
+        .controls {
+            display: flex;
+            justify-content: center;
+
+            gap: 10px;
+
+            margin-top: 15px;
+        }
+
+
+        /*
+         * Button styling.
+         */
+        button {
+            padding: 10px 18px;
+
+            border: none;
+            border-radius: 6px;
+
+            background: #333;
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+
+        /*
+         * Button hover state.
+         */
+        button:hover {
+            background: #555;
+        }
+
+
+        /*
+         * Visible keyboard focus.
+         *
+         * This is especially important for
+         * keyboard and assistive-technology users.
+         */
+        button:focus-visible {
+            outline: 3px solid #0066ff;
+            outline-offset: 3px;
+        }
+
+
+        /*
+         * TABLET
+         */
+        @media (max-width: 768px) {
+
+            .carousel-track {
+                gap: 15px;
+            }
+
+            .card {
+                flex: 0 0 48%;
+
+                height: 180px;
+
+                font-size: 24px;
+            }
+        }
+
+
+        /*
+         * MOBILE
+         */
+        @media (max-width: 480px) {
+
+            .carousel-track {
+                gap: 10px;
+            }
+
+            .card {
+                /*
+                 * One slide fills the carousel.
+                 */
+                flex: 0 0 100%;
+
+                height: 160px;
+
+                font-size: 20px;
+            }
+
+            button {
+                /*
+                 * Larger touch target on phones.
+                 */
+                padding: 12px 16px;
+            }
+        }
+
+
+        /*
+         * Respect the user's reduced-motion preference.
+         */
+        @media (prefers-reduced-motion: reduce) {
+
+            .carousel-track {
+                transition: none;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!--
+        Main carousel container.
+    -->
+    <div class="carousel-container">
+
+
+        <!--
+            Accessible carousel.
+
+            aria-roledescription="carousel"
+            gives assistive technology a more
+            descriptive name for the component.
+
+            aria-label gives the carousel
+            an accessible name.
+        -->
+        <section class="carousel" aria-roledescription="carousel" aria-label="Featured products">
+
+
+            <!--
+                The track contains all slides.
+
+                aria-live is NOT placed here.
+
+                Instead, we use a separate live region
+                below for controlled announcements.
+            -->
+            <div class="carousel-track">
+
+
+                <!--
+                    SLIDE 1
+
+                    role="group" groups the slide
+                    as one accessible unit.
+
+                    aria-roledescription="slide"
+                    tells screen readers that this
+                    group represents a slide.
+
+                    aria-label describes the slide.
+
+                    aria-current="true" means this
+                    is currently the active slide.
+
+                    tabindex="0" allows keyboard users
+                    to focus the active slide.
+                -->
+                <article class="card" role="group" aria-roledescription="slide" aria-label="Slide 1 of 5: Item 1"
+                    aria-current="true" aria-hidden="false" tabindex="0">
+                    Item 1
+                </article>
+
+
+                <!--
+                    SLIDE 2
+
+                    aria-current is false because
+                    this slide is not currently active.
+
+                    aria-hidden="true" removes it from
+                    the screen reader's accessibility tree
+                    while it is inactive.
+                -->
+                <article class="card" role="group" aria-roledescription="slide" aria-label="Slide 2 of 5: Item 2"
+                    aria-current="false" aria-hidden="true" tabindex="-1">
+                    Item 2
+                </article>
+
+
+                <!-- SLIDE 3 -->
+                <article class="card" role="group" aria-roledescription="slide" aria-label="Slide 3 of 5: Item 3"
+                    aria-current="false" aria-hidden="true" tabindex="-1">
+                    Item 3
+                </article>
+
+
+                <!-- SLIDE 4 -->
+                <article class="card" role="group" aria-roledescription="slide" aria-label="Slide 4 of 5: Item 4"
+                    aria-current="false" aria-hidden="true" tabindex="-1">
+                    Item 4
+                </article>
+
+
+                <!-- SLIDE 5 -->
+                <article class="card" role="group" aria-roledescription="slide" aria-label="Slide 5 of 5: Item 5"
+                    aria-current="false" aria-hidden="true" tabindex="-1">
+                    Item 5
+                </article>
+
+
+            </div>
+
+
+            <!--
+                LIVE REGION
+
+                This is a hidden area used specifically
+                for screen-reader announcements.
+
+                aria-live="polite" means:
+
+                "Announce this information when the
+                 screen reader has finished its current
+                 announcement."
+
+                This prevents the carousel from
+                interrupting the user.
+            -->
+            <div id="carouselAnnouncement" class="sr-only" aria-live="polite" aria-atomic="true">
+            </div>
+
+
+        </section>
+
+
+        <!--
+            Carousel controls.
+        -->
+        <div class="controls">
+
+
+            <!-- Previous button -->
+            <button type="button" id="previousButton" aria-label="Previous slide">
+                ← Previous
+            </button>
+
+
+            <!--
+                Pause/play button.
+
+                aria-pressed communicates whether
+                the carousel is currently paused.
+            -->
+            <button type="button" id="pauseButton" aria-label="Pause automatic carousel" aria-pressed="false">
+                Pause
+            </button>
+
+
+            <!-- Next button -->
+            <button type="button" id="nextButton" aria-label="Next slide">
+                Next →
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+
+        /*
+         * Select the carousel track.
+         */
+        const track =
+            document.querySelector(".carousel-track");
+
+
+        /*
+         * Select every slide.
+         */
+        const cards =
+            document.querySelectorAll(".card");
+
+
+        /*
+         * Select the navigation buttons.
+         */
+        const previousButton =
+            document.querySelector("#previousButton");
+
+        const nextButton =
+            document.querySelector("#nextButton");
+
+        const pauseButton =
+            document.querySelector("#pauseButton");
+
+
+        /*
+         * Select the live announcement region.
+         */
+        const announcement =
+            document.querySelector(
+                "#carouselAnnouncement"
+            );
+
+
+        /*
+         * Stores the current slide number.
+
+         * 0 = Slide 1
+         * 1 = Slide 2
+         * 2 = Slide 3
+         * etc.
+         */
+        let currentIndex = 0;
+
+
+        /*
+         * Determines whether automatic movement
+         * is currently active.
+         */
+        let isPlaying = true;
+
+
+        /*
+         * Stores the automatic carousel timer.
+         */
+        let carouselTimer;
+
+
+        /*
+         * Gets the current width of a slide.
+         */
+        function getCardWidth() {
+
+            return cards[0].offsetWidth;
+        }
+
+
+        /*
+         * Gets the current gap between slides.
+         */
+        function getGap() {
+
+            /*
+             * Read the CSS styles of the track.
+             */
+            const styles =
+                getComputedStyle(track);
+
+
+            /*
+             * Convert "20px" into 20.
+             */
+            return parseFloat(styles.gap);
+        }
+
+
+        /*
+         * Updates which slide is visible
+         * to assistive technologies.
+         */
+        function updateAccessibility() {
+
+            /*
+             * Loop through every slide.
+             */
+            cards.forEach((card, index) => {
+
+                /*
+                 * Check whether this is the
+                 * currently active slide.
+                 */
+                const isActive =
+                    index === currentIndex;
+
+
+                /*
+                 * aria-current identifies
+                 * the active slide.
+                 */
+                card.setAttribute(
+                    "aria-current",
+                    isActive ? "true" : "false"
+                );
+
+
+                /*
+                 * Hide inactive slides from
+                 * screen readers.
+
+                 * The active slide remains available.
+                 */
+                card.setAttribute(
+                    "aria-hidden",
+                    isActive ? "false" : "true"
+                );
+
+
+                /*
+                 * Only the active slide can receive
+                 * keyboard focus.
+                 */
+                card.setAttribute(
+                    "tabindex",
+                    isActive ? "0" : "-1"
+                );
+
+            });
+        }
+
+
+        /*
+         * Announces the active slide to
+         * screen readers.
+         */
+        function announceSlide() {
+
+            /*
+             * Create an accessible announcement.
+
+             * Example:
+
+             * "Slide 2 of 5: Item 2"
+             */
+            announcement.textContent =
+                `Slide ${currentIndex + 1} of ${cards.length}: ` +
+                `${cards[currentIndex].textContent.trim()}`;
+        }
+
+
+        /*
+         * Moves the carousel to a specific slide.
+         */
+        function moveToSlide(index) {
+
+            /*
+             * Get the current card width.
+             */
+            const cardWidth =
+                getCardWidth();
+
+
+            /*
+             * Get the current gap.
+             */
+            const gap =
+                getGap();
+
+
+            /*
+             * Calculate the required movement.
+             */
+            const moveDistance =
+                index * (cardWidth + gap);
+
+
+            /*
+             * Move the track to the left.
+             */
+            track.style.transform =
+                `translateX(-${moveDistance}px)`;
+
+
+            /*
+             * Update the current slide.
+             */
+            currentIndex = index;
+
+
+            /*
+             * Update screen-reader information.
+             */
+            updateAccessibility();
+
+
+            /*
+             * Announce the newly selected slide.
+             */
+            announceSlide();
+        }
+
+
+        /*
+         * Move to the next slide.
+         */
+        function nextSlide() {
+
+            /*
+             * Calculate the next slide.
+             */
+            let nextIndex =
+                currentIndex + 1;
+
+
+            /*
+             * Return to the first slide
+             * after the last slide.
+             */
+            if (nextIndex >= cards.length) {
+
+                nextIndex = 0;
+            }
+
+
+            /*
+             * Move to the next slide.
+             */
+            moveToSlide(nextIndex);
+        }
+
+
+        /*
+         * Move to the previous slide.
+         */
+        function previousSlide() {
+
+            /*
+             * Calculate the previous slide.
+             */
+            let previousIndex =
+                currentIndex - 1;
+
+
+            /*
+             * If we are already on the first slide,
+             * go to the last slide.
+             */
+            if (previousIndex < 0) {
+
+                previousIndex =
+                    cards.length - 1;
+            }
+
+
+            /*
+             * Move to the previous slide.
+             */
+            moveToSlide(previousIndex);
+        }
+
+
+        /*
+         * Start automatic movement.
+         */
+        function startCarousel() {
+
+            /*
+             * Remove any existing timer first.
+             */
+            clearInterval(carouselTimer);
+
+
+            /*
+             * Move to the next slide every 5 seconds.
+             */
+            carouselTimer =
+                setInterval(nextSlide, 5000);
+
+
+            /*
+             * Record that the carousel is playing.
+             */
+            isPlaying = true;
+
+
+            /*
+             * Update button text.
+             */
+            pauseButton.textContent = "Pause";
+
+
+            /*
+             * Update screen-reader description.
+             */
+            pauseButton.setAttribute(
+                "aria-label",
+                "Pause automatic carousel"
+            );
+
+
+            /*
+             * Tell assistive technology that
+             * the button is not pressed.
+             */
+            pauseButton.setAttribute(
+                "aria-pressed",
+                "false"
+            );
+        }
+
+
+        /*
+         * Stop automatic movement.
+         */
+        function pauseCarousel() {
+
+            /*
+             * Stop the timer.
+             */
+            clearInterval(carouselTimer);
+
+
+            /*
+             * Record that the carousel is paused.
+             */
+            isPlaying = false;
+
+
+            /*
+             * Change button text.
+             */
+            pauseButton.textContent = "Play";
+
+
+            /*
+             * Update screen-reader description.
+             */
+            pauseButton.setAttribute(
+                "aria-label",
+                "Play automatic carousel"
+            );
+
+
+            /*
+             * Tell assistive technology that
+             * the button is pressed.
+             */
+            pauseButton.setAttribute(
+                "aria-pressed",
+                "true"
+            );
+        }
+
+
+        /*
+         * NEXT BUTTON
+         */
+        nextButton.addEventListener(
+            "click",
+            () => {
+
+                /*
+                 * Move forward.
+                 */
+                nextSlide();
+
+
+                /*
+                 * Restart the automatic timer.
+                 */
+                if (isPlaying) {
+
+                    startCarousel();
+                }
+            }
+        );
+
+
+        /*
+         * PREVIOUS BUTTON
+         */
+        previousButton.addEventListener(
+            "click",
+            () => {
+
+                /*
+                 * Move backward.
+                 */
+                previousSlide();
+
+
+                /*
+                 * Restart the automatic timer.
+                 */
+                if (isPlaying) {
+
+                    startCarousel();
+                }
+            }
+        );
+
+
+        /*
+         * PAUSE / PLAY BUTTON
+         */
+        pauseButton.addEventListener(
+            "click",
+            () => {
+
+                /*
+                 * If playing, pause.
+                 */
+                if (isPlaying) {
+
+                    pauseCarousel();
+
+                }
+
+                /*
+                 * If paused, play.
+                 */
+                else {
+
+                    startCarousel();
+                }
+            }
+        );
+
+
+        /*
+         * KEYBOARD NAVIGATION
+         */
+        document.addEventListener(
+            "keydown",
+            (event) => {
+
+                /*
+                 * Right arrow = next slide.
+                 */
+                if (event.key === "ArrowRight") {
+
+                    nextSlide();
+                }
+
+
+                /*
+                 * Left arrow = previous slide.
+                 */
+                if (event.key === "ArrowLeft") {
+
+                    previousSlide();
+                }
+
+
+                /*
+                 * Space = pause/play.
+                 */
+                if (event.key === " ") {
+
+                    /*
+                     * Prevent normal page scrolling.
+                     */
+                    event.preventDefault();
+
+
+                    /*
+                     * Toggle carousel state.
+                     */
+                    if (isPlaying) {
+
+                        pauseCarousel();
+
+                    } else {
+
+                        startCarousel();
+                    }
+                }
+
+            }
+        );
+
+
+        /*
+         * Recalculate the carousel position
+         * when the screen changes size.
+         */
+        window.addEventListener(
+            "resize",
+            () => {
+
+                /*
+                 * Reposition the current slide.
+                 */
+                moveToSlide(currentIndex);
+            }
+        );
+
+
+        /*
+         * Start the carousel when the page loads.
+         */
+        startCarousel();
+
+
+        /*
+         * Tell screen readers which slide
+         * is initially active.
+         */
+        updateAccessibility();
+
+
+        /*
+         * Make the first announcement.
+         */
+        announceSlide();
+
+
+    </script>
+
+</body>
+
+</html>
+```
+
+### One important CSS addition
+
+The code above uses a class called `sr-only` for the live announcement. Add this to the CSS:
+
+```css
+/* Visually hides content while keeping it available
+to screen readers. */
+.sr-only {
+position: absolute;
+width: 1px;
+height: 1px;
+padding: 0;
+margin: -1px;
+overflow: hidden;
+clip: rect(0, 0, 0, 0);
+white-space: nowrap;
+border: 0;
+}
+```
+
+### What changed for screen readers?
+
+The key improvement is this combination:
+
+```html
+aria-current="true"
+aria-hidden="false"
+tabindex="0"
+```
+
+for the **active slide**, while inactive slides use:
+
+```html
+aria-current="false"
+aria-hidden="true"
+tabindex="-1"
+```
+
+So a screen reader can understand:
+
+> **"Featured products, carousel. Slide 2 of 5: Item 2."**
+
+rather than encountering all five slides as though they were simultaneously active.
+
+The separate live region:
+
+```html
+<div id="carouselAnnouncement" aria-live="polite" aria-atomic="true">
+</div>
+```
+
+then announces changes such as:
+
+> **"Slide 3 of 5: Item 3."**
+
+This is preferable to putting `aria-live` directly on the entire moving track, because otherwise a screen reader may
+repeatedly announce large amounts of changing carousel content.

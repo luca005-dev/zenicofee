@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        body{
+
+
+            height: 100vh;
+
+            background-color: rgb(43, 42, 42);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-direction: column;
+        }
+
+    .carousel{
+
+    background-color: #808080;
+    
+    margin: 3em auto;
+
+    display: flex;
+
+    gap: 1rem;
+
+    width: 66rem;
+
+    overflow-x: scroll;
+
+    border-radius: 12px;
+    scroll-behavior: smooth;
+
+    anchor-name: --carousel;
+    scroll-snap-type: X mandatory;
+
+    scroll-marker-group: after;
+}
+
+.carousel::-webkit-scrollbar{
+    display: none;
+}
+
+.carousel::scroll-marker-group{
+    display: flex;
+    justify-content: center;
+    gap: .5em;
+}
+
+.card::scroll-marker{
+    content: '';
+    aspect-ratio: 1/1;
+    width: 1em;
+    background-color: rgb(71, 71, 98);
+    border-radius: 50%;
+}
+
+.card::scroll-marker:target-current{
+    background-color: aliceblue;
+}
+.carousel::scroll-button(right),
+.carousel::scroll-button(left){
+    content: '>';
+    border: none;
+    font-size: 3rem;
+    aspect-ratio: 1/1;
+    width: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding-bottom: .1em;
+    position: fixed;
+    position-anchor: --carousel;
+    position-area: right center;
+    translate: -50%;
+
+}
+
+.carousel::scroll-button(left){
+    content: '<';
+    position-anchor: --carousel;
+    position-area: left center;
+    translate: 50%;
+
+}
+
+.carousel::scroll-button(right)::details-content{
+    opacity: .5;
+}
+
+.card{
+
+    scroll-snap-align: start;
+    flex: 0 0 20rem;
+
+    height: 10rem;
+
+    background-color: rgb(49, 49, 67);
+
+    padding: 1rem;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    align-content: center;
+}
+
+
+    </style>
+
+</head>
+<body>
+
+    <div class="carousel">
+
+                <article class="card">card 1</article>
+                <article class="card">card 2</article>
+                <article class="card">card 3</article>
+                <article class="card">card 4</article>
+                <article class="card">card 5</article>
+                <article class="card">card 6</article>
+                <article class="card">card 7</article>
+                <article class="card">card 8</article>
+                <article class="card">card 9</article>
+                <article class="card">card 10</article>
+
+           </div>
+    
+</body>
+</html>

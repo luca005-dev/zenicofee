@@ -1,0 +1,1929 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="BuildCore Construction - Modern construction, architecture and engineering solutions.">
+
+    <title>BuildCore | Construction & Engineering</title>
+
+    <style>
+        /* =========================================================
+           GLOBAL RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f7f5;
+            color: #171717;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        button,
+        input,
+        textarea {
+            font: inherit;
+        }
+
+
+        /* =========================================================
+           SCROLL PROGRESS
+        ========================================================= */
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            width: 0%;
+            background: #d49a32;
+            z-index: 2000;
+        }
+
+
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: auto;
+            height: 75px;
+            padding: 0 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #d49a32;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #d49a32;
+        }
+
+        .nav-button {
+            padding: 11px 20px;
+            background: #171717;
+            color: white;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .nav-button:hover {
+            background: #d49a32;
+        }
+
+        .menu-btn {
+            display: none;
+            border: none;
+            background: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            min-height: 100vh;
+            padding: 150px 25px 80px;
+
+            display: flex;
+            align-items: center;
+
+            background:
+                radial-gradient(circle at 80% 30%,
+                    rgba(212, 154, 50, 0.13),
+                    transparent 30%),
+                #f7f7f5;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            margin: auto;
+        }
+
+        .hero-label {
+            display: inline-block;
+            margin-bottom: 20px;
+
+            color: #d49a32;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            max-width: 850px;
+
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 0.95;
+            letter-spacing: -5px;
+        }
+
+        .hero h1 span {
+            color: #d49a32;
+        }
+
+        .hero-text {
+            max-width: 600px;
+            margin-top: 30px;
+
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .hero-buttons {
+            margin-top: 35px;
+
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 25px;
+            border-radius: 4px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: #171717;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d49a32;
+        }
+
+        .btn-outline {
+            border: 1px solid #bbb;
+        }
+
+        .btn-outline:hover {
+            border-color: #171717;
+        }
+
+
+        /* =========================================================
+           CONSTRUCTION SCENE
+        ========================================================= */
+
+        .construction-section {
+            height: 300vh;
+            position: relative;
+            background: #e9e7e1;
+        }
+
+        .construction-sticky {
+            position: sticky;
+            top: 0;
+
+            height: 100vh;
+            overflow: hidden;
+
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        /* Sky */
+
+        .sky {
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(to bottom,
+                    #c8e1ef 0%,
+                    #edf3f1 65%,
+                    #e2dfd7 100%);
+        }
+
+        /* Sun */
+
+        .sun {
+            position: absolute;
+            top: 13%;
+            right: 15%;
+
+            width: 100px;
+            height: 100px;
+
+            border-radius: 50%;
+            background: #f1c76a;
+
+            box-shadow:
+                0 0 60px rgba(241, 199, 106, 0.5);
+        }
+
+        /* Ground */
+
+        .ground {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+
+            width: 100%;
+            height: 22%;
+
+            background: #aaa69b;
+        }
+
+        .ground-line {
+            position: absolute;
+            bottom: 22%;
+            width: 100%;
+            height: 5px;
+            background: #77736a;
+        }
+
+        /* Building */
+
+        .building {
+            position: absolute;
+            bottom: 22%;
+
+            width: min(500px, 65vw);
+            height: min(580px, 65vh);
+
+            transform-origin: bottom;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        /* Building shadow */
+
+        .building-shadow {
+            position: absolute;
+            bottom: -5px;
+            left: -10%;
+
+            width: 120%;
+            height: 20px;
+
+            background: rgba(0, 0, 0, 0.18);
+            filter: blur(10px);
+        }
+
+        /* Foundation */
+
+        .foundation {
+            position: relative;
+            width: 100%;
+            height: 12%;
+
+            background: #77736b;
+            border: 3px solid #55524c;
+
+            transform: scaleY(0);
+            transform-origin: bottom;
+        }
+
+        /* Building body */
+
+        .building-body {
+            position: relative;
+
+            width: 100%;
+            height: 0%;
+
+            background: #f1eee7;
+
+            border-left: 4px solid #555;
+            border-right: 4px solid #555;
+
+            overflow: hidden;
+        }
+
+        /* Floor lines */
+
+        .floor {
+            position: absolute;
+            left: 0;
+
+            width: 100%;
+            height: 3px;
+
+            background: #555;
+        }
+
+        .floor:nth-child(1) {
+            top: 25%;
+        }
+
+        .floor:nth-child(2) {
+            top: 50%;
+        }
+
+        .floor:nth-child(3) {
+            top: 75%;
+        }
+
+        /* Windows */
+
+        .windows {
+            position: absolute;
+            inset: 8% 7%;
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+
+            gap: 12px;
+        }
+
+        .window {
+            background:
+                linear-gradient(135deg,
+                    #9bc5d4,
+                    #315b6b);
+
+            border: 3px solid #4c4c4c;
+
+            box-shadow:
+                inset 0 0 15px rgba(255, 255, 255, 0.25);
+        }
+
+        /* Roof */
+
+        .roof {
+            position: relative;
+
+            width: 110%;
+            height: 35px;
+
+            left: -5%;
+
+            background: #333;
+
+            transform: scaleX(0);
+            transform-origin: center;
+        }
+
+        /* Crane */
+
+        .crane {
+            position: absolute;
+
+            bottom: 22%;
+            left: 10%;
+
+            width: 3px;
+            height: 50%;
+
+            background: #3e3e3e;
+
+            transform-origin: bottom;
+            transform: scaleY(0);
+        }
+
+        .crane-arm {
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 280px;
+            height: 4px;
+
+            background: #3e3e3e;
+
+            transform-origin: left;
+            transform: scaleX(0);
+        }
+
+        .crane-cable {
+            position: absolute;
+
+            top: 4px;
+            left: 220px;
+
+            width: 2px;
+            height: 120px;
+
+            background: #555;
+
+            transform-origin: top;
+            transform: scaleY(0);
+        }
+
+        .construction-label {
+            position: absolute;
+            top: 12%;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            text-align: center;
+        }
+
+        .construction-label small {
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #555;
+        }
+
+        .construction-label h2 {
+            margin-top: 8px;
+            font-size: clamp(2rem, 5vw, 4rem);
+            letter-spacing: -2px;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+
+        /* =========================================================
+           GENERAL SECTION
+        ========================================================= */
+
+        section:not(.construction-section) {
+            padding: 110px 25px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-label {
+            color: #d49a32;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: clamp(2.3rem, 5vw, 4.5rem);
+            line-height: 1;
+            letter-spacing: -3px;
+            max-width: 800px;
+        }
+
+
+        /* =========================================================
+           ABOUT
+        ========================================================= */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-text {
+            color: #666;
+            font-size: 1.05rem;
+        }
+
+        .about-text p+p {
+            margin-top: 20px;
+        }
+
+        .about-card {
+            min-height: 400px;
+
+            background:
+                linear-gradient(135deg,
+                    #252525,
+                    #111);
+
+            color: white;
+
+            padding: 45px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .about-card strong {
+            font-size: 5rem;
+            line-height: 1;
+            color: #d49a32;
+        }
+
+
+        /* =========================================================
+           SERVICES
+        ========================================================= */
+
+        .services {
+            background: #171717;
+            color: white;
+        }
+
+        .service-grid {
+            margin-top: 60px;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+
+            background: #444;
+        }
+
+        .service {
+            background: #171717;
+            padding: 40px;
+            min-height: 280px;
+
+            transition: 0.4s;
+        }
+
+        .service:hover {
+            background: #242424;
+            transform: translateY(-5px);
+        }
+
+        .service-number {
+            color: #d49a32;
+            font-weight: 800;
+        }
+
+        .service h3 {
+            margin: 50px 0 15px;
+            font-size: 1.4rem;
+        }
+
+        .service p {
+            color: #aaa;
+        }
+
+
+        /* =========================================================
+           PROJECTS
+        ========================================================= */
+
+        .projects-grid {
+            margin-top: 60px;
+
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .project {
+            min-height: 400px;
+
+            position: relative;
+            overflow: hidden;
+
+            background: #ddd;
+        }
+
+        .project-visual {
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(135deg,
+                    #303030,
+                    #a9a59c);
+
+            transition: transform 0.6s;
+        }
+
+        .project:nth-child(2) .project-visual {
+            background:
+                linear-gradient(135deg,
+                    #c4c0b6,
+                    #555);
+        }
+
+        .project:nth-child(3) .project-visual {
+            background:
+                linear-gradient(135deg,
+                    #777,
+                    #d5d0c5);
+        }
+
+        .project:nth-child(4) .project-visual {
+            background:
+                linear-gradient(135deg,
+                    #1d1d1d,
+                    #737373);
+        }
+
+        .project:hover .project-visual {
+            transform: scale(1.06);
+        }
+
+        .project-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            padding: 30px;
+
+            color: white;
+
+            background:
+                linear-gradient(transparent,
+                    rgba(0, 0, 0, 0.8));
+        }
+
+        .project-info h3 {
+            font-size: 1.6rem;
+        }
+
+
+        /* =========================================================
+           STATS
+        ========================================================= */
+
+        .stats {
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .stat {
+            padding: 40px 20px;
+            text-align: center;
+            border-right: 1px solid #ddd;
+        }
+
+        .stat:last-child {
+            border: none;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+        }
+
+        .stat p {
+            color: #777;
+        }
+
+
+        /* =========================================================
+           TESTIMONIAL
+        ========================================================= */
+
+        .testimonial {
+            background: #eeece6;
+            text-align: center;
+        }
+
+        .quote {
+            max-width: 850px;
+            margin: 40px auto;
+
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            line-height: 1.25;
+            letter-spacing: -1px;
+        }
+
+        .client {
+            color: #777;
+        }
+
+
+        /* =========================================================
+           CONTACT
+        ========================================================= */
+
+        .contact-grid {
+            margin-top: 60px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        .contact-details p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        form {
+            display: grid;
+            gap: 15px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 16px;
+
+            border: 1px solid #ccc;
+            background: white;
+
+            outline: none;
+
+            transition: 0.3s;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #d49a32;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        form button {
+            border: none;
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            background: #111;
+            color: white;
+
+            padding: 40px 25px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        footer p {
+            color: #777;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE DESIGN
+        ========================================================= */
+
+        @media (max-width: 800px) {
+
+            .nav-links {
+                position: absolute;
+                top: 75px;
+                left: 0;
+
+                width: 100%;
+
+                background: white;
+
+                flex-direction: column;
+                align-items: center;
+
+                padding: 30px;
+
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-button {
+                display: none;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat:nth-child(2) {
+                border-right: none;
+            }
+
+            .stat:nth-child(-n+2) {
+                border-bottom: 1px solid #ddd;
+            }
+
+            .building {
+                width: 70vw;
+                height: 55vh;
+            }
+
+            .crane {
+                left: 3%;
+            }
+
+            .crane-arm {
+                width: 180px;
+            }
+
+            .crane-cable {
+                left: 140px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+            }
+        }
+
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         SCROLL PROGRESS
+    ========================================================== -->
+
+    <div class="progress-bar" id="progressBar"></div>
+
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================== -->
+
+    <header>
+
+        <nav>
+
+            <a href="#home" class="logo">
+                BUILT<span>.</span>
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+
+                <li>
+                    <a href="#about">About</a>
+                </li>
+
+                <li>
+                    <a href="#services">Services</a>
+                </li>
+
+                <li>
+                    <a href="#projects">Projects</a>
+                </li>
+
+                <li>
+                    <a href="#contact">Contact</a>
+                </li>
+
+            </ul>
+
+            <a href="#contact" class="nav-button">
+                Start a Project
+            </a>
+
+            <button class="menu-btn" id="menuBtn">
+                ☰
+            </button>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================================================
+         HERO
+    ========================================================== -->
+
+    <main>
+
+        <section class="hero" id="home">
+
+            <div class="hero-content">
+
+                <div class="hero-label">
+                    Construction • Architecture • Engineering
+                </div>
+
+                <h1>
+                    We build
+                    <span>what lasts.</span>
+                </h1>
+
+                <p class="hero-text">
+                    BuildCore delivers modern construction and
+                    engineering solutions designed around quality,
+                    precision and long-term value.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="#projects" class="btn btn-primary">
+                        View Our Work
+                    </a>
+
+                    <a href="#contact" class="btn btn-outline">
+                        Get a Quote
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             INTERACTIVE CONSTRUCTION SECTION
+        ====================================================== -->
+
+        <section class="construction-section" id="construction">
+
+            <div class="construction-sticky">
+
+                <div class="sky"></div>
+
+                <div class="sun"></div>
+
+                <div class="construction-label">
+
+                    <small>
+                        Scroll to construct
+                    </small>
+
+                    <h2>
+                        From foundation<br>
+                        to finish.
+                    </h2>
+
+                </div>
+
+
+                <!-- Crane -->
+
+                <div class="crane" id="crane">
+
+                    <div class="crane-arm" id="craneArm">
+                    </div>
+
+                    <div class="crane-cable" id="craneCable">
+                    </div>
+
+                </div>
+
+
+                <!-- Building -->
+
+                <div class="building" id="building">
+
+                    <div class="building-shadow"></div>
+
+                    <div class="roof" id="roof">
+                    </div>
+
+                    <div class="building-body" id="buildingBody">
+
+                        <div class="windows">
+
+                            <div class="window"></div>
+                            <div class="window"></div>
+                            <div class="window"></div>
+                            <div class="window"></div>
+
+                            <div class="window"></div>
+                            <div class="window"></div>
+                            <div class="window"></div>
+                            <div class="window"></div>
+
+                            <div class="window"></div>
+                            <div class="window"></div>
+                            <div class="window"></div>
+                            <div class="window"></div>
+
+                            <div class="window"></div>
+                            <div class="window"></div>
+                            <div class="window"></div>
+                            <div class="window"></div>
+
+                        </div>
+
+                        <div class="floor"></div>
+                        <div class="floor"></div>
+                        <div class="floor"></div>
+
+                    </div>
+
+                    <div class="foundation" id="foundation">
+                    </div>
+
+                </div>
+
+
+                <div class="ground"></div>
+
+                <div class="ground-line"></div>
+
+                <div class="scroll-hint">
+                    ↓ Keep scrolling
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             ABOUT
+        ====================================================== -->
+
+        <section id="about">
+
+            <div class="container">
+
+                <div class="about-grid">
+
+                    <div>
+
+                        <div class="section-label">
+                            About BuildCore
+                        </div>
+
+                        <h2 class="section-title">
+                            Engineering ideas into reality.
+                        </h2>
+
+                    </div>
+
+                    <div class="about-text">
+
+                        <p>
+                            We are a construction and engineering
+                            company focused on delivering buildings
+                            that combine functionality, aesthetics
+                            and structural integrity.
+                        </p>
+
+                        <p>
+                            From initial concept and architectural
+                            planning to construction and finishing,
+                            our team manages every stage with
+                            precision.
+                        </p>
+
+                    </div>
+
+                    <div class="about-card">
+
+                        <strong>15+</strong>
+
+                        <h3>
+                            Years of building experience
+                        </h3>
+
+                        <p>
+                            Creating spaces designed for people,
+                            businesses and communities.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             SERVICES
+        ====================================================== -->
+
+        <section class="services" id="services">
+
+            <div class="container">
+
+                <div class="section-label">
+                    What we do
+                </div>
+
+                <h2 class="section-title">
+                    Complete construction solutions.
+                </h2>
+
+                <div class="service-grid">
+
+                    <article class="service">
+
+                        <span class="service-number">
+                            01
+                        </span>
+
+                        <h3>
+                            General Construction
+                        </h3>
+
+                        <p>
+                            Residential, commercial and
+                            institutional construction delivered
+                            from foundation to completion.
+                        </p>
+
+                    </article>
+
+
+                    <article class="service">
+
+                        <span class="service-number">
+                            02
+                        </span>
+
+                        <h3>
+                            Architecture & Design
+                        </h3>
+
+                        <p>
+                            Functional architectural concepts
+                            developed around your vision,
+                            environment and budget.
+                        </p>
+
+                    </article>
+
+
+                    <article class="service">
+
+                        <span class="service-number">
+                            03
+                        </span>
+
+                        <h3>
+                            Civil Engineering
+                        </h3>
+
+                        <p>
+                            Structural and infrastructure
+                            engineering solutions built for
+                            durability and performance.
+                        </p>
+
+                    </article>
+
+
+                    <article class="service">
+
+                        <span class="service-number">
+                            04
+                        </span>
+
+                        <h3>
+                            Renovation
+                        </h3>
+
+                        <p>
+                            Transforming existing spaces through
+                            carefully planned renovation and
+                            modernization.
+                        </p>
+
+                    </article>
+
+
+                    <article class="service">
+
+                        <span class="service-number">
+                            05
+                        </span>
+
+                        <h3>
+                            Project Management
+                        </h3>
+
+                        <p>
+                            Professional coordination of
+                            contractors, schedules, budgets and
+                            construction quality.
+                        </p>
+
+                    </article>
+
+
+                    <article class="service">
+
+                        <span class="service-number">
+                            06
+                        </span>
+
+                        <h3>
+                            Interior Finishing
+                        </h3>
+
+                        <p>
+                            High-quality finishing that brings
+                            the final architectural vision to life.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PROJECTS
+        ====================================================== -->
+
+        <section id="projects">
+
+            <div class="container">
+
+                <div class="section-label">
+                    Selected work
+                </div>
+
+                <h2 class="section-title">
+                    Projects that speak for themselves.
+                </h2>
+
+                <div class="projects-grid">
+
+                    <article class="project">
+
+                        <div class="project-visual"></div>
+
+                        <div class="project-info">
+
+                            <h3>
+                                Horizon Offices
+                            </h3>
+
+                            <p>
+                                Commercial Development
+                            </p>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="project">
+
+                        <div class="project-visual"></div>
+
+                        <div class="project-info">
+
+                            <h3>
+                                Green Residence
+                            </h3>
+
+                            <p>
+                                Residential Development
+                            </p>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="project">
+
+                        <div class="project-visual"></div>
+
+                        <div class="project-info">
+
+                            <h3>
+                                Metro Complex
+                            </h3>
+
+                            <p>
+                                Mixed-Use Development
+                            </p>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="project">
+
+                        <div class="project-visual"></div>
+
+                        <div class="project-info">
+
+                            <h3>
+                                Urban Tower
+                            </h3>
+
+                            <p>
+                                Commercial Construction
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             STATISTICS
+        ====================================================== -->
+
+        <section class="stats">
+
+            <div class="container">
+
+                <div class="stats-grid">
+
+                    <div class="stat">
+
+                        <div class="stat-number" data-target="120">
+                            0
+                        </div>
+
+                        <p>
+                            Projects completed
+                        </p>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <div class="stat-number" data-target="15">
+                            0
+                        </div>
+
+                        <p>
+                            Years experience
+                        </p>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <div class="stat-number" data-target="98">
+                            0
+                        </div>
+
+                        <p>
+                            Client satisfaction
+                        </p>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <div class="stat-number" data-target="35">
+                            0
+                        </div>
+
+                        <p>
+                            Industry awards
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             TESTIMONIAL
+        ====================================================== -->
+
+        <section class="testimonial">
+
+            <div class="container">
+
+                <div class="section-label">
+                    Client perspective
+                </div>
+
+                <div class="quote">
+                    “BuildCore transformed our concept into
+                    a beautiful, functional space while
+                    keeping the project on schedule.”
+                </div>
+
+                <div class="client">
+                    — James Mwangi, Horizon Developments
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONTACT
+        ====================================================== -->
+
+        <section id="contact">
+
+            <div class="container">
+
+                <div class="section-label">
+                    Start a conversation
+                </div>
+
+                <h2 class="section-title">
+                    Have a project in mind?
+                </h2>
+
+                <div class="contact-grid">
+
+                    <div class="contact-details">
+
+                        <p>
+                            Tell us about your project and our
+                            team will get back to you.
+                        </p>
+
+                        <p>
+                            <strong>Email</strong><br>
+                            hello@buildcore.com
+                        </p>
+
+                        <p>
+                            <strong>Phone</strong><br>
+                            +254 700 000 000
+                        </p>
+
+                        <p>
+                            <strong>Office</strong><br>
+                            Nairobi, Kenya
+                        </p>
+
+                    </div>
+
+
+                    <form id="contactForm">
+
+                        <input type="text" placeholder="Your name" required>
+
+                        <input type="email" placeholder="Email address" required>
+
+                        <input type="text" placeholder="Project type">
+
+                        <textarea placeholder="Tell us about your project" required>
+                        </textarea>
+
+                        <button type="submit" class="btn btn-primary">
+
+                            Send Inquiry
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <div>
+                <strong>BUILT.</strong>
+                <p>
+                    Building better spaces.
+                </p>
+            </div>
+
+            <p>
+                © 2026 BuildCore Construction.
+                All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script>
+
+        /* =====================================================
+           MOBILE NAVIGATION
+        ====================================================== */
+
+        const menuBtn = document.getElementById("menuBtn");
+        const navLinks = document.getElementById("navLinks");
+
+        menuBtn.addEventListener("click", () => {
+
+            navLinks.classList.toggle("active");
+
+        });
+
+
+        /* =====================================================
+           SCROLL PROGRESS BAR
+        ====================================================== */
+
+        const progressBar =
+            document.getElementById("progressBar");
+
+        window.addEventListener("scroll", () => {
+
+            const scrollTop = window.scrollY;
+
+            const documentHeight =
+                document.documentElement.scrollHeight -
+                window.innerHeight;
+
+            const progress =
+                (scrollTop / documentHeight) * 100;
+
+            progressBar.style.width = progress + "%";
+
+        });
+
+
+        /* =====================================================
+           SCROLL-DRIVEN BUILDING
+        ====================================================== */
+
+        const construction =
+            document.getElementById("construction");
+
+        const foundation =
+            document.getElementById("foundation");
+
+        const buildingBody =
+            document.getElementById("buildingBody");
+
+        const roof =
+            document.getElementById("roof");
+
+        const crane =
+            document.getElementById("crane");
+
+        const craneArm =
+            document.getElementById("craneArm");
+
+        const craneCable =
+            document.getElementById("craneCable");
+
+
+        function updateConstruction() {
+
+            const rect =
+                construction.getBoundingClientRect();
+
+            const totalScroll =
+                construction.offsetHeight -
+                window.innerHeight;
+
+            let progress =
+                -rect.top / totalScroll;
+
+
+            /* Keep progress between 0 and 1 */
+
+            progress =
+                Math.max(0, Math.min(1, progress));
+
+
+            /*
+             * FOUNDATION
+             *
+             * First 15% of scrolling:
+             * foundation rises from the ground.
+             */
+
+            const foundationProgress =
+                Math.min(progress / 0.15, 1);
+
+            foundation.style.transform =
+                `scaleY(${foundationProgress})`;
+
+
+            /*
+             * BUILDING BODY
+             *
+             * Building grows from 0% to 100%.
+             */
+
+            const bodyProgress =
+                Math.max(
+                    0,
+                    Math.min(
+                        1,
+                        (progress - 0.12) / 0.58
+                    )
+                );
+
+            buildingBody.style.height =
+                `${bodyProgress * 100}%`;
+
+
+            /*
+             * ROOF
+             *
+             * Appears near the end.
+             */
+
+            const roofProgress =
+                Math.max(
+                    0,
+                    Math.min(
+                        1,
+                        (progress - 0.72) / 0.18
+                    )
+                );
+
+            roof.style.transform =
+                `scaleX(${roofProgress})`;
+
+
+            /*
+             * CRANE
+             */
+
+            const craneProgress =
+                Math.min(progress / 0.4, 1);
+
+            crane.style.transform =
+                `scaleY(${craneProgress})`;
+
+            craneArm.style.transform =
+                `scaleX(${craneProgress})`;
+
+            const cableProgress =
+                Math.max(
+                    0,
+                    Math.min(
+                        1,
+                        (progress - 0.25) / 0.5
+                    )
+                );
+
+            craneCable.style.transform =
+                `scaleY(${cableProgress})`;
+
+        }
+
+
+        window.addEventListener(
+            "scroll",
+            updateConstruction,
+            { passive: true }
+        );
+
+        updateConstruction();
+
+
+        /* =====================================================
+           ANIMATED STATISTICS
+        ====================================================== */
+
+        const counters =
+            document.querySelectorAll(".stat-number");
+
+        let countersStarted = false;
+
+
+        function animateCounters() {
+
+            if (countersStarted)
+                return;
+
+            const statsSection =
+                document.querySelector(".stats");
+
+            const rect =
+                statsSection.getBoundingClientRect();
+
+            if (rect.top < window.innerHeight * 0.8) {
+
+                countersStarted = true;
+
+                counters.forEach(counter => {
+
+                    const target =
+                        Number(
+                            counter.dataset.target
+                        );
+
+                    let current = 0;
+
+                    const increment =
+                        Math.max(
+                            1,
+                            Math.ceil(target / 80)
+                        );
+
+                    const timer =
+                        setInterval(() => {
+
+                            current += increment;
+
+                            if (current >= target) {
+
+                                current = target;
+
+                                clearInterval(timer);
+
+                            }
+
+                            counter.textContent =
+                                current +
+                                (
+                                    target === 98
+                                        ? "%"
+                                        : "+"
+                                );
+
+                        }, 25);
+
+                });
+
+            }
+
+        }
+
+
+        window.addEventListener(
+            "scroll",
+            animateCounters,
+            { passive: true }
+        );
+
+
+        /* =====================================================
+           CONTACT FORM
+        ====================================================== */
+
+        const contactForm =
+            document.getElementById("contactForm");
+
+        contactForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+                alert(
+                    "Thank you! Your project inquiry has been received."
+                );
+
+                contactForm.reset();
+
+            }
+        );
+
+
+        /* =====================================================
+           CLOSE MOBILE MENU AFTER CLICK
+        ====================================================== */
+
+        document
+            .querySelectorAll(".nav-links a")
+            .forEach(link => {
+
+                link.addEventListener(
+                    "click",
+                    () => {
+
+                        navLinks.classList.remove("active");
+
+                    }
+                );
+
+            });
+
+    </script>
+
+</body>
+
+</html>
+```

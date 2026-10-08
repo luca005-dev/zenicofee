@@ -1,0 +1,749 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Infinite Product Carousel</title>
+
+    <style>
+
+        /* ==============================
+           BASIC RESET
+        ============================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+
+        /* ==============================
+           100VH SECTION
+        ============================== */
+
+        .products-section {
+
+            width: 100%;
+            height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+
+            padding: 2rem;
+        }
+
+
+        /* Section heading */
+
+        .products-section h1 {
+
+            font-size: 2.5rem;
+
+            margin-bottom: 3rem;
+        }
+
+
+        /* ==============================
+           CAROUSEL
+        ============================== */
+
+        .carousel {
+
+            width: 100%;
+            max-width: 1200px;
+
+            overflow: hidden;
+        }
+
+
+        /* ==============================
+           PRODUCT TRACK
+        ============================== */
+
+        .product-track {
+
+            display: flex;
+
+            gap: 2rem;
+
+            /*
+                This is what creates
+                the sliding animation.
+            */
+
+            transition: transform 0.8s ease;
+        }
+
+
+        /* ==============================
+           PRODUCT CARD
+        ============================== */
+
+        .product-card {
+
+            /*
+                Three cards visible
+                on desktop.
+            */
+
+            min-width: calc((100% - 4rem) / 3);
+
+            background: white;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.1);
+
+            flex-shrink: 0;
+        }
+
+
+        /* Product image */
+
+        .product-card img {
+
+            width: 100%;
+
+            height: 250px;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+
+        /* Product information */
+
+        .product-info {
+
+            padding: 1.5rem;
+        }
+
+
+        .product-info h2 {
+
+            font-size: 1.4rem;
+
+            margin-bottom: 0.7rem;
+        }
+
+
+        .product-info p {
+
+            color: #666;
+
+            line-height: 1.5;
+
+            margin-bottom: 1rem;
+        }
+
+
+        .price {
+
+            font-size: 1.3rem;
+
+            font-weight: bold;
+        }
+
+
+        /* ==============================
+           NAVIGATION BUTTONS
+        ============================== */
+
+        .buttons {
+
+            display: flex;
+
+            gap: 1rem;
+
+            margin-top: 2rem;
+        }
+
+
+        .buttons button {
+
+            width: 50px;
+            height: 50px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: #111;
+
+            color: white;
+
+            font-size: 1.3rem;
+
+            cursor: pointer;
+
+            transition: transform 0.3s ease;
+        }
+
+
+        .buttons button:hover {
+
+            transform: scale(1.1);
+        }
+
+
+        /* ==============================
+           TABLET
+        ============================== */
+
+        @media (max-width: 900px) {
+
+            .product-card {
+
+                min-width: calc((100% - 2rem) / 2);
+            }
+
+        }
+
+
+        /* ==============================
+           MOBILE
+        ============================== */
+
+        @media (max-width: 600px) {
+
+            .products-section h1 {
+
+                font-size: 2rem;
+            }
+
+
+            .product-card {
+
+                min-width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================
+         PRODUCT SECTION
+    ================================== -->
+
+    <section class="products-section">
+
+
+        <h1>Featured Products</h1>
+
+
+        <!-- Carousel viewport -->
+
+        <div class="carousel">
+
+
+            <!--
+                JavaScript will duplicate
+                the products inside this track.
+            -->
+
+            <div class="product-track">
+
+
+                <!-- PRODUCT 1 -->
+
+                <div class="product-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"
+                        alt="Running Shoes"
+                    >
+
+                    <div class="product-info">
+
+                        <h2>Running Shoes</h2>
+
+                        <p>
+                            Comfortable and stylish shoes
+                            designed for everyday performance.
+                        </p>
+
+                        <div class="price">$89</div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRODUCT 2 -->
+
+                <div class="product-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80"
+                        alt="Smart Watch"
+                    >
+
+                    <div class="product-info">
+
+                        <h2>Smart Watch</h2>
+
+                        <p>
+                            Track your fitness and stay
+                            connected throughout the day.
+                        </p>
+
+                        <div class="price">$120</div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRODUCT 3 -->
+
+                <div class="product-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
+                        alt="Headphones"
+                    >
+
+                    <div class="product-info">
+
+                        <h2>Headphones</h2>
+
+                        <p>
+                            High-quality sound with a
+                            modern and comfortable design.
+                        </p>
+
+                        <div class="price">$75</div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRODUCT 4 -->
+
+                <div class="product-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80"
+                        alt="Smart Device"
+                    >
+
+                    <div class="product-info">
+
+                        <h2>Smart Device</h2>
+
+                        <p>
+                            A modern device designed
+                            to make everyday life easier.
+                        </p>
+
+                        <div class="price">$150</div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRODUCT 5 -->
+
+                <div class="product-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80"
+                        alt="Laptop"
+                    >
+
+                    <div class="product-info">
+
+                        <h2>Laptop</h2>
+
+                        <p>
+                            Powerful performance for
+                            work, creativity and entertainment.
+                        </p>
+
+                        <div class="price">$899</div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRODUCT 6 -->
+
+                <div class="product-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80"
+                        alt="T-Shirt"
+                    >
+
+                    <div class="product-info">
+
+                        <h2>Classic T-Shirt</h2>
+
+                        <p>
+                            Comfortable everyday clothing
+                            with a clean modern design.
+                        </p>
+
+                        <div class="price">$35</div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <div class="buttons">
+
+            <button id="prev">
+                &#10094;
+            </button>
+
+            <button id="next">
+                &#10095;
+            </button>
+
+        </div>
+
+
+    </section>
+
+
+    <script>
+
+        /* ==================================
+           SELECT ELEMENTS
+        ================================== */
+
+        const track =
+            document.querySelector(".product-track");
+
+        const originalCards =
+            [...document.querySelectorAll(".product-card")];
+
+        const nextButton =
+            document.getElementById("next");
+
+        const prevButton =
+            document.getElementById("prev");
+
+
+        /* ==================================
+           CREATE CLONES
+        ================================== */
+
+        /*
+            Clone every original product.
+
+            The cloned products are placed
+            immediately after the originals.
+
+            Example:
+
+            1 2 3 4 5 6
+            1 2 3 4 5 6
+
+            When the first set disappears,
+            the second set is already visible.
+        */
+
+        originalCards.forEach(card => {
+
+            const clone =
+                card.cloneNode(true);
+
+            track.appendChild(clone);
+
+        });
+
+
+        /* ==================================
+           VARIABLES
+        ================================== */
+
+        let currentIndex = 0;
+
+        let isTransitioning = false;
+
+        let autoSlide;
+
+
+        /* ==================================
+           GET CARD DISTANCE
+        ================================== */
+
+        function getCardDistance() {
+
+            const card =
+                track.querySelector(".product-card");
+
+            const gap =
+                parseFloat(
+                    getComputedStyle(track).gap
+                );
+
+            return card.offsetWidth + gap;
+        }
+
+
+        /* ==================================
+           MOVE CAROUSEL
+        ================================== */
+
+        function moveCarousel() {
+
+            const distance =
+                getCardDistance();
+
+            track.style.transform =
+                `translateX(-${currentIndex * distance}px)`;
+        }
+
+
+        /* ==================================
+           NEXT SLIDE
+        ================================== */
+
+        function nextSlide() {
+
+            if (isTransitioning) return;
+
+            isTransitioning = true;
+
+            currentIndex++;
+
+            moveCarousel();
+
+        }
+
+
+        /* ==================================
+           PREVIOUS SLIDE
+        ================================== */
+
+        function previousSlide() {
+
+            if (isTransitioning) return;
+
+            /*
+                If we are at the beginning,
+                jump to the equivalent position
+                in the cloned section.
+
+                The transition is temporarily
+                disabled, so the user doesn't
+                see the reset.
+            */
+
+            if (currentIndex === 0) {
+
+                track.style.transition = "none";
+
+                currentIndex =
+                    originalCards.length;
+
+                moveCarousel();
+
+                /*
+                    Force browser to apply
+                    the position immediately.
+                */
+
+                track.offsetHeight;
+
+                track.style.transition =
+                    "transform 0.8s ease";
+
+            }
+
+            currentIndex--;
+
+            moveCarousel();
+
+        }
+
+
+        /* ==================================
+           AFTER SLIDE FINISHES
+        ================================== */
+
+        track.addEventListener(
+            "transitionend",
+            () => {
+
+                isTransitioning = false;
+
+
+                /*
+                    We have reached the cloned
+                    section.
+
+                    Example:
+
+                    Original:
+                    1 2 3 4 5 6
+
+                    Clone:
+                    1 2 3 4 5 6
+
+                    Once we reach clone 1,
+                    silently move back to
+                    original 1.
+                */
+
+                if (
+                    currentIndex >=
+                    originalCards.length
+                ) {
+
+                    track.style.transition =
+                        "none";
+
+                    currentIndex -=
+                        originalCards.length;
+
+                    moveCarousel();
+
+                    /*
+                        Force immediate update.
+                    */
+
+                    track.offsetHeight;
+
+                    track.style.transition =
+                        "transform 0.8s ease";
+                }
+
+            }
+        );
+
+
+        /* ==================================
+           AUTOMATIC SLIDING
+        ================================== */
+
+        function startAutoSlide() {
+
+            autoSlide =
+                setInterval(() => {
+
+                    nextSlide();
+
+                }, 5000);
+
+        }
+
+
+        /* ==================================
+           BUTTON CONTROLS
+        ================================== */
+
+        nextButton.addEventListener(
+            "click",
+            () => {
+
+                nextSlide();
+
+                /*
+                    Restart the 5-second timer
+                    after manual interaction.
+                */
+
+                clearInterval(autoSlide);
+
+                startAutoSlide();
+
+            }
+        );
+
+
+        prevButton.addEventListener(
+            "click",
+            () => {
+
+                previousSlide();
+
+                clearInterval(autoSlide);
+
+                startAutoSlide();
+
+            }
+        );
+
+
+        /* ==================================
+           RESPONSIVE RESIZE
+        ================================== */
+
+        window.addEventListener(
+            "resize",
+            () => {
+
+                /*
+                    Temporarily disable animation
+                    while recalculating position.
+                */
+
+                track.style.transition =
+                    "none";
+
+                moveCarousel();
+
+                track.offsetHeight;
+
+                track.style.transition =
+                    "transform 0.8s ease";
+
+            }
+        );
+
+
+        /* ==================================
+           START CAROUSEL
+        ================================== */
+
+        startAutoSlide();
+
+    </script>
+
+</body>
+
+</html>
+```
+
+
+
+

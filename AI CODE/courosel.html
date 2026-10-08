@@ -1,0 +1,1496 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Green Video Carousel</title>
+
+    <style>
+        /* ==============================
+           GLOBAL RESET
+        ============================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5fff8;
+        }
+
+
+        /* ==============================
+           100VH PARENT SECTION
+        ============================== */
+
+        .video-section {
+            width: 100%;
+            height: 100vh;
+
+            /* Green + white background */
+            background:
+                linear-gradient(135deg,
+                    #063b25,
+                    #0b6b3a,
+                    #ffffff);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 2rem;
+        }
+
+
+        /* ==============================
+           CAROUSEL CONTAINER
+           60% OF PARENT WIDTH
+        ============================== */
+
+        .carousel {
+            position: relative;
+
+            width: 60%;
+            height: 70%;
+
+            overflow: hidden;
+
+            border: 4px solid white;
+            border-radius: 20px;
+
+            background: #063b25;
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.35);
+        }
+
+
+        /* ==============================
+           VIDEO SLIDES
+        ============================== */
+
+        .slides {
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+
+            transition:
+                transform 0.8s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+
+            position: relative;
+        }
+
+        .slide video {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+
+        /* ==============================
+           DARK VIDEO OVERLAY
+        ============================== */
+
+        .slide::after {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(to top,
+                    rgba(0, 50, 30, 0.75),
+                    transparent 60%);
+
+            pointer-events: none;
+        }
+
+
+        /* ==============================
+           SLIDE TEXT
+        ============================== */
+
+        .slide-content {
+            position: absolute;
+
+            z-index: 2;
+
+            left: 8%;
+            bottom: 10%;
+
+            color: white;
+
+            max-width: 70%;
+        }
+
+        .slide-content h2 {
+            font-size: clamp(1.8rem, 4vw, 3.5rem);
+
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+
+        /* ==============================
+           PREVIOUS / NEXT BUTTONS
+        ============================== */
+
+        .arrow {
+            position: absolute;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            z-index: 5;
+
+            width: 45px;
+            height: 45px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: white;
+            color: #087a3e;
+
+            font-size: 1.5rem;
+
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+
+            transition:
+                background 0.3s,
+                color 0.3s,
+                transform 0.3s;
+        }
+
+        .arrow:hover {
+            background: #087a3e;
+            color: white;
+
+            transform:
+                translateY(-50%) scale(1.1);
+        }
+
+        .previous {
+            left: 15px;
+        }
+
+        .next {
+            right: 15px;
+        }
+
+
+        /* ==============================
+           DOT NAVIGATION
+        ============================== */
+
+        .dots {
+            position: absolute;
+
+            z-index: 5;
+
+            bottom: 20px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            display: flex;
+
+            gap: 10px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+
+            border-radius: 50%;
+
+            border: 2px solid white;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            transition:
+                background 0.3s,
+                transform 0.3s;
+        }
+
+        .dot.active {
+            background: #ffffff;
+
+            transform: scale(1.3);
+        }
+
+
+        /* ==============================
+           RESPONSIVE DESIGN
+        ============================== */
+
+        @media (max-width: 900px) {
+
+            .carousel {
+                width: 80%;
+                height: 65%;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .video-section {
+                padding: 1rem;
+            }
+
+            .carousel {
+                width: 100%;
+                height: 65%;
+            }
+
+            .slide-content {
+                left: 6%;
+                bottom: 12%;
+
+                max-width: 80%;
+            }
+
+            .arrow {
+                width: 38px;
+                height: 38px;
+            }
+
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =================================
+         100VH VIDEO SECTION
+    ================================== -->
+
+    <section class="video-section">
+
+        <!-- VIDEO CAROUSEL -->
+
+        <div class="carousel">
+
+            <!-- SLIDES -->
+
+            <div class="slides" id="slides">
+
+                <!-- VIDEO 1 -->
+
+                <div class="slide">
+
+                    <video autoplay muted loop playsinline>
+
+                        <source src="videos/video1.mp4" type="video/mp4">
+
+                    </video>
+
+                    <div class="slide-content">
+
+                        <h2>Innovation</h2>
+
+                        <p>
+                            Discover modern solutions designed
+                            for a smarter and greener future.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- VIDEO 2 -->
+
+                <div class="slide">
+
+                    <video muted loop playsinline>
+
+                        <source src="videos/video2.mp4" type="video/mp4">
+
+                    </video>
+
+                    <div class="slide-content">
+
+                        <h2>Technology</h2>
+
+                        <p>
+                            Powerful technology that transforms
+                            ideas into real-world solutions.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- VIDEO 3 -->
+
+                <div class="slide">
+
+                    <video muted loop playsinline>
+
+                        <source src="videos/video3.mp4" type="video/mp4">
+
+                    </video>
+
+                    <div class="slide-content">
+
+                        <h2>Sustainability</h2>
+
+                        <p>
+                            Building a cleaner and more sustainable
+                            tomorrow.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PREVIOUS BUTTON -->
+
+            <button class="arrow previous" id="previous">
+
+                &#10094;
+
+            </button>
+
+
+            <!-- NEXT BUTTON -->
+
+            <button class="arrow next" id="next">
+
+                &#10095;
+
+            </button>
+
+
+            <!-- DOTS -->
+
+            <div class="dots">
+
+                <button class="dot active" data-slide="0">
+                </button>
+
+                <button class="dot" data-slide="1">
+                </button>
+
+                <button class="dot" data-slide="2">
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================
+         JAVASCRIPT
+    ================================== -->
+
+    <script>
+
+        /* Get carousel elements */
+
+        const slides =
+            document.getElementById("slides");
+
+        const slideItems =
+            document.querySelectorAll(".slide");
+
+        const nextButton =
+            document.getElementById("next");
+
+        const previousButton =
+            document.getElementById("previous");
+
+        const dots =
+            document.querySelectorAll(".dot");
+
+
+        /* Current slide */
+
+        let currentSlide = 0;
+
+
+        /* Number of slides */
+
+        const totalSlides =
+            slideItems.length;
+
+
+        /* ==============================
+           SHOW SLIDE
+        ============================== */
+
+        function showSlide(index) {
+
+            /* Keep index inside carousel range */
+
+            if (index >= totalSlides) {
+                currentSlide = 0;
+            }
+
+            else if (index < 0) {
+                currentSlide = totalSlides - 1;
+            }
+
+            else {
+                currentSlide = index;
+            }
+
+
+            /* Move carousel */
+
+            slides.style.transform =
+                `translateX(-${currentSlide * 100}%)`;
+
+
+            /* Update dots */
+
+            dots.forEach(dot => {
+                dot.classList.remove("active");
+            });
+
+            dots[currentSlide]
+                .classList.add("active");
+
+
+            /* Pause all videos */
+
+            slideItems.forEach(slide => {
+
+                const video =
+                    slide.querySelector("video");
+
+                video.pause();
+
+            });
+
+
+            /* Play current video */
+
+            const currentVideo =
+                slideItems[currentSlide]
+                    .querySelector("video");
+
+            currentVideo.play();
+
+        }
+
+
+        /* ==============================
+           NEXT BUTTON
+        ============================== */
+
+        nextButton.addEventListener(
+            "click",
+            () => {
+
+                showSlide(currentSlide + 1);
+
+            }
+        );
+
+
+        /* ==============================
+           PREVIOUS BUTTON
+        ============================== */
+
+        previousButton.addEventListener(
+            "click",
+            () => {
+
+                showSlide(currentSlide - 1);
+
+            }
+        );
+
+
+        /* ==============================
+           DOT NAVIGATION
+        ============================== */
+
+        dots.forEach(dot => {
+
+            dot.addEventListener(
+                "click",
+                () => {
+
+                    const index =
+                        Number(
+                            dot.dataset.slide
+                        );
+
+                    showSlide(index);
+
+                }
+            );
+
+        });
+
+
+        /* ==============================
+           AUTOMATIC SLIDE CHANGE
+        ============================== */
+
+        setInterval(() => {
+
+            showSlide(currentSlide + 1);
+
+        }, 6000);
+
+    </script>
+
+</body>
+
+</html>
+```f
+
+
+
+
+
+
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Continuous Video Carousel</title>
+
+
+    <style>
+        /* =========================================
+           GLOBAL RESET
+        ========================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4fff8;
+        }
+
+
+        /* =========================================
+           MAIN 100VH SECTION
+        ========================================= */
+
+        .video-section {
+
+            width: 100%;
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(135deg,
+                    #063b25,
+                    #087a3e,
+                    #ffffff);
+        }
+
+
+        /* =========================================
+           CAROUSEL
+           60% OF PARENT WIDTH
+        ========================================= */
+
+        .carousel {
+
+            position: relative;
+
+            width: 60%;
+            height: 70%;
+
+            overflow: hidden;
+
+            border: 4px solid white;
+
+            border-radius: 20px;
+
+            background: #063b25;
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.35);
+        }
+
+
+        /* =========================================
+           SLIDING TRACK
+        ========================================= */
+
+        .slides {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 3rem;
+
+            height: 100%;
+
+            /*
+                The track is moved using JavaScript.
+            */
+
+            transform: translateX(0);
+
+            transition:
+                transform 0.8s ease-in-out;
+
+            padding: 0 3rem;
+
+        }
+
+
+        /* =========================================
+           INDIVIDUAL ITEMS
+        ========================================= */
+
+        .slide {
+
+            /*
+                Exactly 3 items fit inside
+                the visible carousel area.
+
+                The width calculation accounts
+                for two 3rem gaps.
+            */
+
+            flex: 0 0 calc((100% - 6rem) / 3);
+
+            height: 75%;
+
+            position: relative;
+
+            overflow: hidden;
+
+            border-radius: 16px;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.25);
+
+        }
+
+
+        /* =========================================
+           VIDEO
+        ========================================= */
+
+        .slide video {
+
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+        }
+
+
+        /* =========================================
+           VIDEO OVERLAY
+        ========================================= */
+
+        .slide::after {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(to top,
+                    rgba(0, 60, 35, 0.85),
+                    rgba(0, 0, 0, 0) 65%);
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================
+           ITEM CONTENT
+        ========================================= */
+
+        .slide-content {
+
+            position: absolute;
+
+            z-index: 2;
+
+            left: 1.2rem;
+            right: 1.2rem;
+            bottom: 1.2rem;
+
+            color: white;
+        }
+
+
+        .slide-content h2 {
+
+            font-size: 1.4rem;
+
+            margin-bottom: 0.4rem;
+        }
+
+
+        .slide-content p {
+
+            font-size: 0.85rem;
+
+            line-height: 1.4;
+        }
+
+
+        /* =========================================
+           NAVIGATION BUTTONS
+        ========================================= */
+
+        .arrow {
+
+            position: absolute;
+
+            z-index: 10;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            width: 48px;
+            height: 48px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: white;
+
+            color: #087a3e;
+
+            font-size: 1.5rem;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 5px 15px rgba(0, 0, 0, 0.3);
+
+            transition:
+                0.3s ease;
+        }
+
+
+        .arrow:hover {
+
+            background: #087a3e;
+
+            color: white;
+
+            transform:
+                translateY(-50%) scale(1.1);
+        }
+
+
+        .previous {
+
+            left: 12px;
+        }
+
+
+        .next {
+
+            right: 12px;
+        }
+
+
+        /* =========================================
+           RESPONSIVE DESIGN
+        ========================================= */
+
+        @media (max-width: 1000px) {
+
+            .carousel {
+
+                width: 80%;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .carousel {
+
+                width: 95%;
+            }
+
+
+            /*
+                On smaller screens show
+                two items instead of three.
+            */
+
+            .slide {
+
+                flex: 0 0 calc((100% - 3rem) / 2);
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            /*
+                On phones show one item.
+            */
+
+            .slide {
+
+                flex: 0 0 100%;
+            }
+
+
+            .slides {
+
+                gap: 1.5rem;
+
+                padding: 0 1.5rem;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         100VH VIDEO SECTION
+    ========================================= -->
+
+    <section class="video-section">
+
+
+        <!-- =====================================
+             CAROUSEL
+        ====================================== -->
+
+        <div class="carousel">
+
+
+            <!-- =================================
+                 SLIDING TRACK
+            ================================== -->
+
+            <div class="slides" id="slides">
+
+
+                <!-- =================================
+                     CLONE OF ITEM 10
+                     Allows seamless looping
+                ================================== -->
+
+                <div class="slide">
+
+                    <video muted loop playsinline>
+
+                        <source src="videos/video10.mp4" type="video/mp4">
+
+                    </video>
+
+                    <div class="slide-content">
+
+                        <h2>Item 10</h2>
+
+                        <p>
+                            Final item in the collection.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     ITEM 1
+                ================================== -->
+
+                <div class="slide">
+
+                    <video autoplay muted loop playsinline>
+
+                        <source src="videos/video1.mp4" type="video/mp4">
+
+                    </video>
+
+                    <div class="slide-content">
+
+                        <h2>Innovation</h2>
+
+                        <p>
+                            Discover innovative solutions.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ITEM 2 -->
+
+                <div class="slide">
+
+                    <video muted loop playsinline>
+
+                        <source src="videos/video2.mp4" type="video/mp4">
+
+                    </video>
+
+                    <div class="slide-content">
+
+                        <h2>Technology</h2>
+
+                        <p>
+                            Modern technology for tomorrow.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ITEM 3 -->
+
+                <div class="slide">
+
+                    <video muted loop playsinline>
+
+                        <source src="videos/video3.mp4" type="video/mp4">
+
+                    </video>
+
+                    <div class="slide-content">
+
+                        <h2>Sustainability</h2>
+
+                        <p>
+                            Creating a sustainable future.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ITEM 4 -->
+
+                <div class="slide">
+
+                    <video muted loop playsinline>
+
+                        <source src="videos/video4.mp4" type="video/mp4">
+
+                    </video>
+
+                    <div class="slide-content">
+
+                        <h2>Development</h2>
+
+                        <p>
+                            Building powerful solutions.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ITEM 5 -->
+
+                <div class="slide">
+
+                    <video muted loop playsinline>
+
+                        <source src="videos/video5.mp4" type="video/mp4">
+
+                    </video>
+
+                    <div class="slide-content">
+
+                        <h2>Growth</h2>
+
+                        <p>
+                            Turning ideas into opportunities.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ITEM 6 -->
+
+                <div class="slide">
+
+                    <video muted loop playsinline>
+
+                        <source src="videos/video6.mp4" type="video/mp4">
+
+                    </video>
+
+                    <div class="slide-content">
+
+                        <h2>Quality</h2>
+
+                        <p>
+                            Excellence in every solution.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ITEM 7 -->
+
+                <div class="slide">
+
+                    <video muted loop playsinline>
+
+                        <source src="videos/video7.mp4" type="video/mp4">
+
+                    </video>
+
+                    <div class="slide-content">
+
+                        <h2>Performance</h2>
+
+                        <p>
+                            Designed for outstanding results.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ITEM 8 -->
+
+                <div class="slide">
+
+                    <video muted loop playsinline>
+
+                        <source src="videos/video8.mp4" type="video/mp4">
+
+                    </video>
+
+                    <div class="slide-content">
+
+                        <h2>Experience</h2>
+
+                        <p>
+                            Creating better experiences.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ITEM 9 -->
+
+                <div class="slide">
+
+                    <video muted loop playsinline>
+
+                        <source src="videos/video9.mp4" type="video/mp4">
+
+                    </video>
+
+                    <div class="slide-content">
+
+                        <h2>Future</h2>
+
+                        <p>
+                            Preparing for what's next.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ITEM 10 -->
+
+                <div class="slide">
+
+                    <video muted loop playsinline>
+
+                        <source src="videos/video10.mp4" type="video/mp4">
+
+                    </video>
+
+                    <div class="slide-content">
+
+                        <h2>Impact</h2>
+
+                        <p>
+                            Making a meaningful difference.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     CLONE OF ITEM 1
+                     Allows seamless looping
+                ================================== -->
+
+                <div class="slide">
+
+                    <video muted loop playsinline>
+
+                        <source src="videos/video1.mp4" type="video/mp4">
+
+                    </video>
+
+                    <div class="slide-content">
+
+                        <h2>Innovation</h2>
+
+                        <p>
+                            Discover innovative solutions.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================
+                 PREVIOUS BUTTON
+            ================================== -->
+
+            <button class="arrow previous" id="previous">
+
+                &#10094;
+
+            </button>
+
+
+            <!-- =================================
+                 NEXT BUTTON
+            ================================== -->
+
+            <button class="arrow next" id="next">
+
+                &#10095;
+
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================= -->
+
+    <script>
+
+
+        /* =====================================
+           GET ELEMENTS
+        ===================================== */
+
+        const track =
+            document.getElementById("slides");
+
+        const nextButton =
+            document.getElementById("next");
+
+        const previousButton =
+            document.getElementById("previous");
+
+        const allSlides =
+            document.querySelectorAll(".slide");
+
+
+        /* =====================================
+           ORIGINAL ITEMS
+
+           We have:
+
+           clone 10
+           item 1
+           item 2
+           ...
+           item 10
+           clone 1
+
+           Therefore the actual items begin
+           at index 1.
+        ===================================== */
+
+        let currentIndex = 1;
+
+
+        /* =====================================
+           GET GAP
+        ===================================== */
+
+        const gap = 48; // 3rem = 48px
+
+
+        /* =====================================
+           MOVE CAROUSEL
+        ===================================== */
+
+        function moveCarousel(animate = true) {
+
+
+            /*
+                Get the width of one slide.
+            */
+
+            const slideWidth =
+                allSlides[0].offsetWidth;
+
+
+            /*
+                Calculate movement.
+
+                Every movement consists of:
+
+                slide width + 3rem gap
+            */
+
+            const movement =
+                slideWidth + gap;
+
+
+            /*
+                Center the 3 visible items.
+
+                We shift by one item at a time.
+            */
+
+            const carouselWidth =
+                document.querySelector(".carousel")
+                    .clientWidth;
+
+
+            const centerOffset =
+                (carouselWidth - slideWidth) / 2;
+
+
+            /*
+                Apply animation.
+            */
+
+            track.style.transition =
+                animate
+                    ? "transform 0.8s ease-in-out"
+                    : "none";
+
+
+            /*
+                Move track to the selected item.
+            */
+
+            track.style.transform =
+                `translateX(
+                    ${centerOffset -
+                (currentIndex * movement)}
+                    px
+                )`;
+
+        }
+
+
+        /* =====================================
+           NEXT
+        ===================================== */
+
+        function nextSlide() {
+
+            currentIndex++;
+
+            moveCarousel(true);
+
+
+            /*
+                When we reach the cloned item 1,
+                immediately jump back to real item 1.
+            */
+
+            if (currentIndex === 11) {
+
+                setTimeout(() => {
+
+                    currentIndex = 1;
+
+                    moveCarousel(false);
+
+                }, 800);
+
+            }
+
+        }
+
+
+        /* =====================================
+           PREVIOUS
+        ===================================== */
+
+        function previousSlide() {
+
+            currentIndex--;
+
+            moveCarousel(true);
+
+
+            /*
+                If we reach the clone of item 10,
+                jump to the real item 10.
+            */
+
+            if (currentIndex === 0) {
+
+                setTimeout(() => {
+
+                    currentIndex = 10;
+
+                    moveCarousel(false);
+
+                }, 800);
+
+            }
+
+        }
+
+
+        /* =====================================
+           BUTTON EVENTS
+        ===================================== */
+
+        nextButton.addEventListener(
+            "click",
+            nextSlide
+        );
+
+
+        previousButton.addEventListener(
+            "click",
+            previousSlide
+        );
+
+
+        /* =====================================
+           AUTOMATIC ROTATION
+        ===================================== */
+
+        setInterval(() => {
+
+            nextSlide();
+
+        }, 3500);
+
+
+        /* =====================================
+           HANDLE WINDOW RESIZE
+        ===================================== */
+
+        window.addEventListener(
+            "resize",
+            () => {
+
+                moveCarousel(false);
+
+            }
+        );
+
+
+        /* ===================================== 
+           INITIAL POSITION
+        ===================================== */
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                moveCarousel(false);
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
+```

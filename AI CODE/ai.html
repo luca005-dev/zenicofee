@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Defines the character encoding used by the page -->
+    <meta charset="UTF-8">
+
+    <!-- Makes the page responsive on phones, tablets and computers -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- The title displayed on the browser tab -->
+    <title>Automatic Carousel</title>
+
+
+    <style>
+        /* Removes the browser's default margin from the page */
+        body {
+            margin: 0;
+
+            /* Sets a simple font for the page */
+            font-family: Arial, sans-serif;
+
+            /* Centers the carousel horizontally and vertically */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* Makes the page at least as tall as the screen */
+            min-height: 100vh;
+
+            /* Gives the page a light background */
+            background: #f2f2f2;
+        }
+
+
+        /* 
+           This is the visible window of the carousel.
+           Anything that moves outside this area is hidden.
+        */
+        .carousel {
+            width: 800px;
+
+            /* Hides cards that move outside the carousel */
+            overflow: hidden;
+        }
+
+
+        /*
+           This container holds all the cards.
+           display: flex puts the cards next to each other horizontally.
+        */
+        .carousel-track {
+            display: flex;
+
+            /* Creates space between the cards */
+            gap: 20px;
+
+            /*
+               Makes the movement smooth instead of instant.
+               The JavaScript changes transform,
+               and this transition animates that change.
+            */
+            transition: transform 0.6s ease;
+        }
+
+
+        /*
+           Styles each individual carousel card.
+        */
+        .card {
+            /*
+               Prevents the cards from shrinking.
+               Each card remains 250px wide.
+            */
+            min-width: 250px;
+
+            /* Sets the height of each card */
+            height: 180px;
+
+            /* Centers the text horizontally */
+            display: flex;
+            justify-content: center;
+
+            /* Centers the text vertically */
+            align-items: center;
+
+            /* Gives each card a background */
+            background: #333;
+
+            /* Makes the text white */
+            color: white;
+
+            /* Makes the text larger */
+            font-size: 30px;
+
+            /* Rounds the corners of the cards */
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- 
+        The main carousel container.
+        It acts as the visible window.
+    -->
+    <div class="carousel">
+
+        <!-- 
+            The track contains all the cards.
+            JavaScript will move this element from right to left.
+        -->
+        <div class="carousel-track">
+
+            <!-- First carousel item -->
+            <div class="card">Item 1</div>
+
+            <!-- Second carousel item -->
+            <div class="card">Item 2</div>
+
+            <!-- Third carousel item -->
+            <div class="card">Item 3</div>
+
+            <!-- Fourth carousel item -->
+            <div class="card">Item 4</div>
+
+            <!-- Fifth carousel item -->
+            <div class="card">Item 5</div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /*
+         * Select the element that contains all the cards.
+         *
+         * document.querySelector()
+         * searches the HTML document and returns
+         * the first element matching ".carousel-track".
+         */
+        const track = document.querySelector(".carousel-track");
+
+
+        /*
+         * Select all elements that have the class "card".
+         *
+         * querySelectorAll() returns all matching elements.
+         */
+        const cards = document.querySelectorAll(".card");
+
+
+        /*
+         * This variable keeps track of which card
+         * is currently being displayed.
+         *
+         * We start at position 0 because JavaScript
+         * starts counting array-like collections from 0.
+         */
+        let currentIndex = 0;
+
+
+        /*
+         * Get the width of the first card.
+         *
+         * offsetWidth gives us the width of the element
+         * in pixels.
+         */
+        const cardWidth = cards[0].offsetWidth;
+
+
+        /*
+         * This is the gap between the cards.
+         *
+         * It must match the "gap" value in CSS.
+         */
+        const gap = 20;
+
+
+        /*
+         * setInterval() repeatedly executes a function
+         * after a specified amount of time.
+         *
+         * 5000 milliseconds = 5 seconds.
+         *
+         * Therefore, the carousel moves every 5 seconds.
+         */
+        setInterval(() => {
+
+
+            /*
+             * Move to the next card.
+             *
+             * For example:
+             *
+             * 0 → 1 → 2 → 3 → 4
+             */
+            currentIndex++;
+
+
+            /*
+             * Check whether we have reached
+             * the number of available cards.
+             *
+             * cards.length is 5 in this example.
+             */
+            if (currentIndex >= cards.length) {
+
+                /*
+                 * Return to the first card.
+                 *
+                 * 0 represents the first position.
+                 */
+                currentIndex = 0;
+            }
+
+
+            /*
+             * Calculate how far the carousel should move.
+             *
+             * Example:
+             *
+             * Card width = 250px
+             * Gap = 20px
+             *
+             * Moving one card:
+             *
+             * 1 × (250 + 20) = 270px
+             */
+            const moveDistance =
+                currentIndex * (cardWidth + gap);
+
+
+            /*
+             * Move the carousel track to the left.
+             *
+             * The "-" sign makes the value negative,
+             * which moves the track from right to left.
+             *
+             * Example:
+             *
+             * translateX(-270px)
+             *
+             * means move the track 270px to the left.
+             */
+            track.style.transform =
+                `translateX(-${moveDistance}px)`;
+
+
+            /*
+             * 5000 means wait 5 seconds before
+             * executing the function again.
+             */
+        }, 5000);
+
+    </script>
+
+</body>
+
+</html>
+```
+
+<!--!### The main JavaScript idea
+
+The most important part to understand is this:
+
+```javascript
+setInterval(() => {
+
+currentIndex++;
+
+const moveDistance =
+currentIndex * (cardWidth + gap);
+
+track.style.transform =
+`translateX(-${moveDistance}px)`;
+
+}, 5000);
+```
+
+Think of it as:
+
+**Wait 5 seconds → move one card → wait 5 seconds → move one card → repeat.**
+
+The CSS:
+
+```css
+transition: transform 0.6s ease;
+```
+
+is what makes the movement **slide smoothly** rather than instantly jumping to the new position.
+
+One thing to note: this basic version **jumps back to Item 1 after the last item**. For a product website, an
+**infinite/seamless carousel** is better because the user won't see that reset.-->

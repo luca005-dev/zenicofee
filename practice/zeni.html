@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zeni brew</title>
+    <link rel="stylesheet" href="zeni.css">
+</head>
+<body>
+  <header>
+    <img class="logo" src="zeni2.png" alt="coffee mug image">
+    <nav>
+        <a href="#about">about</a>
+        <a href="#contact">contact</a>
+        <a href="#products">products</a>
+    </nav>
+  </header> 
+  <main>
+    <section class="hero">
+      
+      <a href="#">order now</a>
+    </section>
+  </main>
+  <div class="stats">
+    <div>
+      <p>Customer Satisfaction</p>
+      <span>99%</span>
+    </div>
+    <div>
+      <p>Quality:</p>
+      <span>Premium</span>
+    </div>
+    <div>
+      <p>100%</p>
+      <span>Organic</span>
+    </div>
+  </div>
+  <section id="about">
+    <p>hgdvdsjhvfdjhfbf dfvfbvfsdv fvhfvbfjvdfidfv dvhdfvbf<br>
+    hdsvbsdsdgsddfdfyhdffvvbdffdjhhbvdk jvbdsv dffbvdfv vdfvikvh<br>
+  ysfsd fgyrfrfvf hefsdbisdc ssdvhisfs shbvv hvvkvh</p>
+
+  <p>hgdvdsjhvfdjhfbf dfvfbvfsdv fvhfvbfjvdfidfv dvhdfvbf<br>
+    hdsvbsdsdgsddfdfyhdffvvbdffdjhhbvdk jvbdsv dffbvdfv vdfvikvh<br>
+    ysfsd fgyrfrfvf hefsdbisdc ssdvhisfs shbvv hvvkvh</p>
+
+    <p>hgdvdsjhvfdjhfbf dfvfbvfsdv fvhfvbfjvdfidfv dvhdfvbf<br>
+      hdsvbsdsdgsddfdfyhdffvvbdffdjhhbvdk jvbdsv dffbvdfv vdfvikvh<br>
+      ysfsd fgyrfrfvf hefsdbisdc ssdvhisfs shbvv hvvkvh</p>
+  </section>
+  <section id="products">
+    <img src="coffee.png" alt="" class="item">
+    <img src="IMG-20260527-WA0004.jpg" alt="" class="item">
+    <img src="IMG-20260527-WA0005.jpg" alt="" class="item">
+    <img src="IMG-20260527-WA0005.jpg" alt="" class="item">
+    <img src="IMG-20260527-WA0005.jpg" alt="" class="item">
+  </section>
+  <footer>
+    <img src="zeni2.png" alt="coffee mug image">
+    <div class="social-media">
+      <a href="#"><img class="logo" src="172473860726284078.jfif" alt="coffee mug image"></a>
+      <a href="#"><img class="logo" src="fall youtube icon.jfif" alt="coffee mug image"></a>
+      <a href="#"><img class="logo" src="x.jfif" alt="coffee mug image"></a>
+      <a href="#"><img class="logo" src="1124281494479411225.jfif" alt="coffee mug image"></a>
+      <a href="#"><img class="logo" src="fall fb icon.jfif" alt="coffee mug image"></a>
+      <a href="#"><img class="logo" src="Gmail app icon dark brown.jfif" alt="coffee mug image"></a>
+    </div>
+    <ul>
+      <li><a href="#">privacy policy</a></li>
+      <li><a href="#">products</a></li>
+      <li><a href="#">terms and condition</a></li>
+      <li><a href="#">about</a></li>
+      <li><a href="#">contacts</a></li>
+    </ul>   
+  </footer>
+
+  <section class="contact">
+  
+    <form class="contact-form" action="#" method="POST">
+  
+      <fieldset>
+  
+        <legend>contact us</legend>
+
+        <div class="form-info">
+        
+        <p>Have a question or need more information? Fill out the form below and we'll get back to you.</p>
+      </div>
+  
+        <div class="form-group">
+          <input type="tetx" placeholder="enter full name" id="name" name="name" maxlength="15" required minlength="10">
+        </div>
+  
+        <div class="form-group">
+  
+          <input type="email" id="email" name="email" placeholder="enter email" required maxlength="25" minlength="10">
+        </div>
+  
+        <div class="form-group">
+  
+          <input type="tel" id="phone" name="phone" placeholder="+254 7** *** ***" required maxlength="15" minlength="10">
+        </div>
+  
+        <div class="form-group">
+  
+          <input type="text" placeholder="what is your message about" name="subject" required id="subject" maxlength="10" minlength="5">
+        </div>
+  
+        <div class="form-group">
+  
+          <textarea id="message" name="message" placeholder="write your message here" rows="10" maxlength="100"
+            minlength="25">
+          </textarea>
+        </div>
+  
+        <button class="submi">send message</button>
+  
+      </fieldset>
+  
+    </form>
+  
+  </section>
+
+  <script src="script.js">
+
+  
+
+// =========================================
+    // CONTACT FORM JAVASCRIPT
+    // =========================================
+
+
+    // Select the form from the HTML
+    const contactForm = document.querySelector(".contact-form");
+
+
+    // Listen for the form submission
+    contactForm.addEventListener("submit", function (event) {
+
+      // Prevent the browser from refreshing the page
+      event.preventDefault();
+
+
+    // Get the values entered by the user
+    const name = document.querySelector("#name").value.trim();
+    const email = document.querySelector("#email").value.trim();
+    const phone = document.querySelector("#phone").value.trim();
+    const subject = document.querySelector("#subject").value.trim();
+    const message = document.querySelector("#message").value.trim();
+
+
+    // =========================================
+    // BASIC VALIDATION
+    // =========================================
+
+    // Check whether the required fields are empty
+    if (name === "" || email === "" || subject === "" || message === "") {
+
+      alert("Please fill in all required fields.");
+
+    // Stop the function
+    return;
+    }
+
+
+    // =========================================
+    // EMAIL VALIDATION
+    // =========================================
+
+    // Regular expression used to check email format
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+    // Check whether the email is valid
+    if (!emailPattern.test(email)) {
+
+      alert("Please enter a valid email address.");
+
+    return;
+    }
+
+
+    // =========================================
+    // SUCCESS MESSAGE
+    // =========================================
+
+    alert("Thank you, " + name + "! Your message has been submitted.");
+
+
+    // =========================================
+    // CLEAR THE FORM
+    // =========================================
+
+    // Reset all form fields after successful submission
+    contactForm.reset();
+
+  });
+
+  </script>
+</body>
+
+</html>
+

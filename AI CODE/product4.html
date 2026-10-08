@@ -1,0 +1,1416 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Character encoding -->
+    <meta charset="UTF-8">
+
+    <!-- Makes the website responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AgriLearn Products</title>
+
+
+    <style>
+        /* =========================================
+           1. GLOBAL RESET
+           ========================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #edf4e8;
+
+            color: #20351b;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =========================================
+           2. PRODUCT SECTION
+           ========================================= */
+
+        .products-section {
+
+            /*
+                100% of the browser width.
+            */
+
+            width: 100%;
+
+            /*
+                100vh means the section takes
+                the complete height of the screen.
+            */
+
+            height: 100vh;
+
+            /*
+                Prevents the product section
+                from becoming taller than the viewport.
+            */
+
+            overflow: hidden;
+
+            display: flex;
+
+            flex-direction: column;
+
+            padding: 30px 4%;
+        }
+
+
+        /* =========================================
+           3. HEADER
+           ========================================= */
+
+        .section-header {
+
+            width: 100%;
+
+            text-align: center;
+
+            margin-bottom: 18px;
+        }
+
+
+        .section-header span {
+
+            color: #568f35;
+
+            font-size: 0.75rem;
+
+            font-weight: bold;
+
+            letter-spacing: 3px;
+        }
+
+
+        .section-header h1 {
+
+            font-size:
+                clamp(2rem, 4vw, 3.2rem);
+
+            margin: 7px 0;
+        }
+
+
+        .section-header p {
+
+            max-width: 750px;
+
+            margin: auto;
+
+            color: #687565;
+
+            line-height: 1.5;
+
+            font-size: 0.9rem;
+        }
+
+
+        /* =========================================
+           4. CATEGORY NAVIGATION
+           ========================================= */
+
+        .categories {
+
+            width: 100%;
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            margin-bottom: 15px;
+
+            overflow-x: auto;
+
+            padding-bottom: 4px;
+        }
+
+
+        .category-btn {
+
+            flex-shrink: 0;
+
+            border: 1px solid #cbd7c5;
+
+            background: white;
+
+            color: #40543a;
+
+            padding: 8px 16px;
+
+            border-radius: 30px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .category-btn:hover {
+
+            transform: translateY(-2px);
+        }
+
+
+        .category-btn.active {
+
+            background: #4f8b2f;
+
+            color: white;
+
+            border-color: #4f8b2f;
+        }
+
+
+        /* =========================================
+           5. FULL-SCREEN PRODUCT CONTAINER
+           ========================================= */
+
+        .product-container {
+
+            /*
+                Full browser width.
+            */
+
+            width: 100%;
+
+            /*
+                Full browser height.
+            */
+
+            height: 100vh;
+
+            /*
+                The container itself remains
+                fixed inside the section.
+            */
+
+            overflow: hidden;
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 10px;
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.08);
+
+            /*
+                Allows it to occupy the
+                remaining available space.
+            */
+
+            flex: 1;
+
+            min-height: 0;
+        }
+
+
+        /* =========================================
+           6. SCROLLABLE PRODUCT LIST
+           ========================================= */
+
+        .product-list {
+
+            width: 100%;
+
+            height: 100%;
+
+            /*
+                The cards scroll vertically
+                inside the full-screen container.
+            */
+
+            overflow-y: auto;
+
+            overflow-x: hidden;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+
+            padding: 5px 8px 15px;
+        }
+
+
+        /* =========================================
+           7. SCROLLBAR
+           ========================================= */
+
+        .product-list::-webkit-scrollbar {
+
+            width: 8px;
+        }
+
+
+        .product-list::-webkit-scrollbar-track {
+
+            background: #edf2e9;
+
+            border-radius: 20px;
+        }
+
+
+        .product-list::-webkit-scrollbar-thumb {
+
+            background: #6e9d52;
+
+            border-radius: 20px;
+        }
+
+
+        /* =========================================
+           8. PRODUCT CARD
+           ========================================= */
+
+        .product-card {
+
+            /*
+                Every card fills the complete
+                width of the container.
+            */
+
+            width: 100%;
+
+            min-height: 210px;
+
+            display: grid;
+
+            grid-template-columns: 30% 70%;
+
+            background: #f8faf6;
+
+            border: 1px solid #dfe7db;
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            /*
+                Animation starting position.
+            */
+
+            opacity: 0;
+
+            transform: translateY(35px);
+
+            transition:
+                opacity 0.5s ease,
+                transform 0.5s ease,
+                box-shadow 0.3s ease;
+        }
+
+
+        /*
+            Applied by JavaScript when
+            the card enters the viewport.
+        */
+
+        .product-card.visible {
+
+            opacity: 1;
+
+            transform: translateY(0);
+        }
+
+
+        .product-card:hover {
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.10);
+        }
+
+
+        /* =========================================
+           9. VIDEO
+           ========================================= */
+
+        .video-container {
+
+            position: relative;
+
+            min-height: 210px;
+
+            overflow: hidden;
+
+            background: #dce8d6;
+        }
+
+
+        .product-video {
+
+            width: 100%;
+
+            height: 100%;
+
+            min-height: 210px;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+
+        /* Dark gradient over video */
+
+        .video-container::after {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(to top,
+                    rgba(0, 0, 0, 0.35),
+                    transparent 60%);
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================
+           10. VIDEO LABEL
+           ========================================= */
+
+        .video-label {
+
+            position: absolute;
+
+            top: 12px;
+
+            left: 12px;
+
+            z-index: 3;
+
+            background:
+                rgba(255, 255, 255, 0.92);
+
+            color: #4c842f;
+
+            padding: 6px 11px;
+
+            border-radius: 20px;
+
+            font-size: 0.7rem;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================================
+           11. PRODUCT INFORMATION
+           ========================================= */
+
+        .product-info {
+
+            padding: 25px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+        }
+
+
+        .product-category {
+
+            color: #629345;
+
+            font-size: 0.7rem;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 7px;
+        }
+
+
+        .product-info h2 {
+
+            font-size: 1.5rem;
+
+            margin-bottom: 7px;
+        }
+
+
+        .product-info p {
+
+            color: #687365;
+
+            line-height: 1.6;
+
+            font-size: 0.9rem;
+
+            max-width: 850px;
+
+            margin-bottom: 12px;
+        }
+
+
+        /* =========================================
+           12. PRODUCT FACTS
+           ========================================= */
+
+        .facts {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 7px;
+        }
+
+
+        .fact {
+
+            padding: 6px 9px;
+
+            background: #e9f2e4;
+
+            color: #49653d;
+
+            border-radius: 5px;
+
+            font-size: 0.7rem;
+        }
+
+
+        /* =========================================
+           13. LEARN MORE BUTTON
+           ========================================= */
+
+        .learn-more {
+
+            width: fit-content;
+
+            margin-top: 12px;
+
+            padding: 9px 16px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background: #4f8b2f;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+
+        .learn-more:hover {
+
+            background: #3c7022;
+        }
+
+
+        /* =========================================
+           14. MOBILE
+           ========================================= */
+
+        @media (max-width: 700px) {
+
+            .products-section {
+
+                padding: 20px 3%;
+            }
+
+
+            .product-card {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .video-container {
+
+                height: 180px;
+
+                min-height: 180px;
+            }
+
+
+            .product-video {
+
+                min-height: 180px;
+            }
+
+
+            .product-info {
+
+                padding: 18px;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         PRODUCT SECTION
+         ========================================= -->
+
+    <section class="products-section">
+
+
+        <!-- HEADER -->
+
+        <div class="section-header">
+
+            <span>
+                AGRICULTURAL PRODUCTS
+            </span>
+
+            <h1>
+                Explore Our Products
+            </h1>
+
+            <p>
+                Learn about important agricultural
+                products, their uses, characteristics
+                and role in modern farming.
+            </p>
+
+        </div>
+
+
+        <!-- =========================================
+             CATEGORY BUTTONS
+             ========================================= -->
+
+        <div class="categories">
+
+
+            <button class="category-btn active" data-category="all">
+
+                All
+
+            </button>
+
+
+            <button class="category-btn" data-category="crop">
+
+                Crops
+
+            </button>
+
+
+            <button class="category-btn" data-category="cash">
+
+                Cash Crops
+
+            </button>
+
+
+            <button class="category-btn" data-category="vegetable">
+
+                Vegetables
+
+            </button>
+
+
+            <button class="category-btn" data-category="livestock">
+
+                Livestock
+
+            </button>
+
+
+            <button class="category-btn" data-category="aquaculture">
+
+                Aquaculture
+
+            </button>
+
+
+        </div>
+
+
+        <!-- =========================================
+             FULL-WIDTH / FULL-HEIGHT CONTAINER
+             ========================================= -->
+
+        <div class="product-container">
+
+
+            <!-- =====================================
+                 SCROLLABLE LIST
+                 ===================================== -->
+
+            <div class="product-list" id="productList">
+
+                <!--
+
+                    JavaScript will automatically
+                    generate the 15 product cards.
+
+                    This keeps the HTML clean and
+                    makes changing products easier.
+
+                -->
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <script>
+
+
+        /* =========================================
+           PRODUCT DATABASE
+           ========================================= */
+
+
+        /*
+            Each product has:
+
+            name
+            category
+            description
+            facts
+            video URL
+        */
+
+
+        const products = [
+
+            {
+                name: "Maize",
+
+                category: "crop",
+
+                description:
+                    "A major cereal crop grown for food, livestock feed and industrial processing.",
+
+                facts:
+                    ["Cereal", "Food", "3–4 Months"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/06/04/41172-428415163_large.mp4"
+            },
+
+
+            {
+                name: "Coffee",
+
+                category: "cash",
+
+                description:
+                    "A valuable cash crop cultivated for its beans, which are processed and roasted into coffee.",
+
+                facts:
+                    ["Export", "Cash Crop", "Perennial"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39937-424584089_large.mp4"
+            },
+
+
+            {
+                name: "Tea",
+
+                category: "cash",
+
+                description:
+                    "A commercial crop grown for its young leaves, which are processed to produce tea beverages.",
+
+                facts:
+                    ["Export", "Beverage", "Perennial"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39935-424583745_large.mp4"
+            },
+
+
+            {
+                name: "Wheat",
+
+                category: "crop",
+
+                description:
+                    "A major cereal crop commonly processed into flour for bread, pasta and other foods.",
+
+                facts:
+                    ["Grain", "Food", "Cereal"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39930-424581799_large.mp4"
+            },
+
+
+            {
+                name: "Rice",
+
+                category: "crop",
+
+                description:
+                    "A staple cereal crop commonly grown in irrigated and flooded agricultural systems.",
+
+                facts:
+                    ["Staple Food", "Cereal", "Irrigation"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39931-424582055_large.mp4"
+            },
+
+
+            {
+                name: "Tomatoes",
+
+                category: "vegetable",
+
+                description:
+                    "A widely cultivated crop consumed fresh or processed into sauces, juices and other foods.",
+
+                facts:
+                    ["Vegetable", "Food", "High Demand"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39936-424583962_large.mp4"
+            },
+
+
+            {
+                name: "Potatoes",
+
+                category: "crop",
+
+                description:
+                    "A versatile tuber crop grown for direct consumption and processing into various food products.",
+
+                facts:
+                    ["Tuber", "Food", "Root Crop"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39929-424581605_large.mp4"
+            },
+
+
+            {
+                name: "Beans",
+
+                category: "crop",
+
+                description:
+                    "Protein-rich legumes used as food while also helping improve soil fertility through nitrogen fixation.",
+
+                facts:
+                    ["Legume", "Protein", "Food"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39934-424583445_large.mp4"
+            },
+
+
+            {
+                name: "Avocado",
+
+                category: "cash",
+
+                description:
+                    "A high-value fruit crop grown for domestic markets and international export.",
+
+                facts:
+                    ["Fruit", "Export", "High Value"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39932-424582405_large.mp4"
+            },
+
+
+            {
+                name: "Bananas",
+
+                category: "crop",
+
+                description:
+                    "A tropical fruit crop grown for food and commercial production in warm regions.",
+
+                facts:
+                    ["Fruit", "Food", "Tropical"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2022/10/27/137329-765743034_large.mp4"
+            },
+
+
+            {
+                name: "Sugarcane",
+
+                category: "cash",
+
+                description:
+                    "An industrial crop cultivated primarily for sugar production and related by-products.",
+
+                facts:
+                    ["Sugar", "Industrial", "Cash Crop"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39933-424582801_large.mp4"
+            },
+
+
+            {
+                name: "Cotton",
+
+                category: "cash",
+
+                description:
+                    "A fiber crop cultivated mainly for textile production and other industrial applications.",
+
+                facts:
+                    ["Fiber", "Textile", "Industrial"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39928-424581284_large.mp4"
+            },
+
+
+            {
+                name: "Dairy Cattle",
+
+                category: "livestock",
+
+                description:
+                    "Cattle raised primarily for milk production and often integrated with crop and forage farming.",
+
+                facts:
+                    ["Milk", "Livestock", "Dairy"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39927-424580957_large.mp4"
+            },
+
+
+            {
+                name: "Poultry",
+
+                category: "livestock",
+
+                description:
+                    "Birds such as chickens are raised commercially for meat and egg production.",
+
+                facts:
+                    ["Eggs", "Meat", "Livestock"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39926-424580649_large.mp4"
+            },
+
+
+            {
+                name: "Fish Farming",
+
+                category: "aquaculture",
+
+                description:
+                    "Fish are raised under controlled conditions for food production, income generation and commercial supply.",
+
+                facts:
+                    ["Aquaculture", "Food", "Commercial"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39925-424580333_large.mp4"
+            }
+
+        ];
+
+
+        /* =========================================
+           GET PRODUCT LIST
+           ========================================= */
+
+
+        const productList =
+            document.getElementById(
+                "productList"
+            );
+
+
+        /* =========================================
+           GENERATE PRODUCT CARDS
+           ========================================= */
+
+
+        function displayProducts(
+            selectedCategory = "all"
+        ) {
+
+
+            /*
+                Clear the existing cards.
+            */
+
+            productList.innerHTML = "";
+
+
+            /*
+                Filter products according
+                to the selected category.
+            */
+
+            const filteredProducts =
+                products.filter(
+
+                    function (product) {
+
+                        return (
+                            selectedCategory ===
+                            "all"
+
+                            ||
+
+                            product.category ===
+                            selectedCategory
+                        );
+
+                    }
+
+                );
+
+
+            /*
+                Generate a card for
+                every matching product.
+            */
+
+            filteredProducts.forEach(
+
+                function (product) {
+
+
+                    const card =
+                        document.createElement(
+                            "article"
+                        );
+
+
+                    card.className =
+                        "product-card";
+
+
+                    card.dataset.category =
+                        product.category;
+
+
+                    /*
+                        Create the complete
+                        product card.
+                    */
+
+                    card.innerHTML = `
+
+                        <div class="video-container">
+
+                            <span class="video-label">
+                                ${product.name}
+                            </span>
+
+                            <video
+                                class="product-video"
+                                muted
+                                loop
+                                playsinline
+                                preload="metadata">
+
+                                <source
+                                    src="${product.video}"
+                                    type="video/mp4">
+
+                            </video>
+
+                        </div>
+
+
+                        <div class="product-info">
+
+                            <span
+                                class="product-category">
+
+                                ${product.category}
+
+                            </span>
+
+
+                            <h2>
+                                ${product.name}
+                            </h2>
+
+
+                            <p>
+                                ${product.description}
+                            </p>
+
+
+                            <div class="facts">
+
+                                ${product.facts.map(
+
+                        function (fact) {
+
+                            return `
+                                            <span
+                                                class="fact">
+
+                                                ${fact}
+
+                                            </span>
+                                        `;
+
+                        }
+
+                    ).join("")}
+
+                            </div>
+
+
+                            <button
+                                class="learn-more">
+
+                                Learn More →
+
+                            </button>
+
+                        </div>
+
+                    `;
+
+
+                    /*
+                        Add the card to
+                        the product list.
+                    */
+
+                    productList.appendChild(card);
+
+                }
+
+            );
+
+
+            /*
+                Activate the scroll
+                animation after cards
+                have been generated.
+            */
+
+            activateCardObserver();
+
+
+            /*
+                Activate video
+                performance control.
+            */
+
+            activateVideoObserver();
+
+        }
+
+
+        /* =========================================
+           CARD SCROLL ANIMATION
+           ========================================= */
+
+
+        function activateCardObserver() {
+
+
+            const observer =
+                new IntersectionObserver(
+
+                    function (entries) {
+
+                        entries.forEach(
+
+                            function (entry) {
+
+                                if (
+                                    entry.isIntersecting
+                                ) {
+
+                                    entry.target
+                                        .classList
+                                        .add(
+                                            "visible"
+                                        );
+
+                                }
+
+                                else {
+
+                                    /*
+                                        Removing the class
+                                        allows the animation
+                                        to happen again when
+                                        scrolling back.
+                                    */
+
+                                    entry.target
+                                        .classList
+                                        .remove(
+                                            "visible"
+                                        );
+
+                                }
+
+                            }
+
+                        );
+
+                    },
+
+                    {
+                        root:
+                            productList,
+
+                        threshold: 0.15
+
+                    }
+
+                );
+
+
+            /*
+                Observe all cards.
+            */
+
+            document
+                .querySelectorAll(
+                    ".product-card"
+                )
+                .forEach(
+
+                    function (card) {
+
+                        observer.observe(card);
+
+                    }
+
+                );
+
+        }
+
+
+        /* =========================================
+           VIDEO PERFORMANCE CONTROL
+           ========================================= */
+
+
+        function activateVideoObserver() {
+
+
+            const videoObserver =
+                new IntersectionObserver(
+
+                    function (entries) {
+
+                        entries.forEach(
+
+                            function (entry) {
+
+                                const video =
+                                    entry.target;
+
+
+                                if (
+                                    entry.isIntersecting
+                                ) {
+
+                                    /*
+                                        Start video
+                                        when visible.
+                                    */
+
+                                    video.play()
+                                        .catch(
+                                            () => { }
+                                        );
+
+                                }
+
+                                else {
+
+                                    /*
+                                        Pause video
+                                        when hidden.
+                                    */
+
+                                    video.pause();
+
+                                }
+
+                            }
+
+                        );
+
+                    },
+
+                    {
+
+                        root:
+                            productList,
+
+                        threshold: 0.25
+
+                    }
+
+                );
+
+
+            /*
+                Monitor all videos.
+            */
+
+            document
+                .querySelectorAll(
+                    ".product-video"
+                )
+                .forEach(
+
+                    function (video) {
+
+                        videoObserver.observe(
+                            video
+                        );
+
+                    }
+
+                );
+
+        }
+
+
+        /* =========================================
+           CATEGORY FILTER
+           ========================================= */
+
+
+        const categoryButtons =
+            document.querySelectorAll(
+                ".category-btn"
+            );
+
+
+        categoryButtons.forEach(
+
+            function (button) {
+
+
+                button.addEventListener(
+
+                    "click",
+
+                    function () {
+
+
+                        /*
+                            Remove active
+                            state from all.
+                        */
+
+                        categoryButtons.forEach(
+
+                            function (btn) {
+
+                                btn.classList
+                                    .remove(
+                                        "active"
+                                    );
+
+                            }
+
+                        );
+
+
+                        /*
+                            Activate selected
+                            category.
+                        */
+
+                        button.classList
+                            .add("active");
+
+
+                        /*
+                            Read category.
+                        */
+
+                        const category =
+                            button.dataset.category;
+
+
+                        /*
+                            Rebuild the
+                            product list.
+                        */
+
+                        displayProducts(
+                            category
+                        );
+
+                    }
+
+                );
+
+            }
+
+        );
+
+
+        /* =========================================
+           INITIALIZE WEBSITE
+           ========================================= */
+
+
+        displayProducts("all");
+
+    </script>
+
+</body>
+
+</html>
+```

@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>products</title>
+
+    <link rel="stylesheet" href="agro.css">
+</head>
+
+<body>
+
+    <header>
+        <header>
+
+            <!--LOGO-->
+
+            <div class="logo-container">
+
+                <img class="logo" src="images/YQ8r8.png" alt="agriproducts logo">
+
+            </div>
+
+            <!--NAV-LINKS-->
+
+            <ul class="nav-links ">
+
+                <li><a href="p1.html">home</a></li>
+
+                <li><a href="about.html">about</a></li>
+
+                <li><a href="p1.html#contacts">contact us</a></li>
+
+            </ul>
+
+        </header>
+
+    </header>
+
+    <main class="product-section">
+
+        <video class="hero-video" autoplay muted loop playsinline poster="farm-land.mp4">
+        
+            <source src="farm-land.mp4" type="video/mp4">
+        
+        </video>
+        
+        <div class="hero-overlay"></div>
+
+
+        <section id="products-section">
+        
+            <div class="section-header">
+        
+                <span>
+                    products
+                </span>
+        
+                <h1>
+                    Explore Our Products
+                </h1>
+        
+                <p>
+                    Learn about important
+                    products, their uses, characteristics
+                    and role in modern farming.
+                </p>
+        
+            </div>
+        
+            <div class="categories">
+        
+        
+                <button class="category-btn active" data-category="all">
+        
+                    All
+        
+                </button>
+        
+        
+                <button class="category-btn" data-category="crop">
+        
+                    Crops
+        
+                </button>
+        
+        
+                <button class="category-btn" data-category="cash">
+        
+                    Cash Crops
+        
+                </button>
+        
+        
+                <button class="category-btn" data-category="vegetable">
+        
+                    Vegetables
+        
+                </button>
+        
+        
+                <button class="category-btn" data-category="livestock">
+        
+                    Livestock
+        
+                </button>
+        
+        
+                <button class="category-btn" data-category="aquaculture">
+        
+                    Aquaculture
+        
+                </button>
+        
+        
+            </div>
+        
+            <!--PRODUCT CONTAINER-->
+        
+            <div class="product-container">
+        
+        
+                <!-- SCROLLABLE -->
+        
+                <div class="product-list" id="productList">
+        
+                    <!-- javascript code -->
+        
+                </div>
+        
+            </div>
+        
+        </section>
+
+
+    </main>
+
+    <footer class="site-footer">
+
+        <!-- Main footer content -->
+        <div class="footer-container">
+
+            <!-- About section -->
+            <div class="footer-column">
+                <h2>YOUR BRAND</h2>
+
+                <p>
+                    We provide quality products and reliable services
+                    designed to give our customers the best experience.
+                </p>
+
+                <!-- Social media icons -->
+                <div class="social-icons">
+
+                    <!-- YouTube -->
+                    <a href="#" aria-label="YouTube" target="_blank">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+
+                    <!-- Instagram -->
+                    <a href="#" aria-label="Instagram" target="_blank">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                    <!-- Facebook -->
+                    <a href="#" aria-label="Facebook" target="_blank">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+
+                    <!-- TikTok -->
+                    <a href="#" aria-label="TikTok" target="_blank">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+
+                    <!-- LinkedIn -->
+                    <a href="#" aria-label="LinkedIn" target="_blank">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+
+                </div>
+            </div>
+
+
+            <!-- About links -->
+            <div class="footer-column">
+                <h3>About</h3>
+
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Our Services</a></li>
+                    <li><a href="#">Our Team</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+
+
+            <!-- Contact section -->
+            <div class="footer-column">
+                <h3>Contact</h3>
+
+                <ul class="contact-list">
+                    <li>
+                        <i class="fa-solid fa-location-dot"></i>
+                        Nairobi, Kenya
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        +254 700 000 000
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        info@example.com
+                    </li>
+                </ul>
+            </div>
+
+
+            <!-- Legal section -->
+            <div class="footer-column">
+                <h3>Legal</h3>
+
+                <ul>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+
+        <!-- Footer bottom -->
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 YOUR BRAND. All Rights Reserved.
+            </p>
+
+            <p>
+
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script>
+
+
+        /* =========================================
+           PRODUCT DATABASE
+           ========================================= */
+
+
+        /*
+            Each product has:
+ 
+            name
+            category
+            description
+            facts
+            video URL
+        */
+
+
+        const products = [
+
+            {
+                name: "Maize",
+
+                category: "crop",
+
+                description:
+                    "A major cereal crop grown for food, livestock feed and industrial processing.",
+
+                facts:
+                    ["Cereal", "Food", "3–4 Months"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/06/04/41172-428415163_large.mp4"
+            },
+
+
+            {
+                name: "Coffee",
+
+                category: "cash",
+
+                description:
+                    "A valuable cash crop cultivated for its beans, which are processed and roasted into coffee.",
+
+                facts:
+                    ["Export", "Cash Crop", "Perennial"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39937-424584089_large.mp4"
+            },
+
+
+            {
+                name: "Tea",
+
+                category: "cash",
+
+                description:
+                    "A commercial crop grown for its young leaves, which are processed to produce tea beverages.",
+
+                facts:
+                    ["Export", "Beverage", "Perennial"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39935-424583745_large.mp4"
+            },
+
+
+            {
+                name: "Wheat",
+
+                category: "crop",
+
+                description:
+                    "A major cereal crop commonly processed into flour for bread, pasta and other foods.",
+
+                facts:
+                    ["Grain", "Food", "Cereal"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39930-424581799_large.mp4"
+            },
+
+
+            {
+                name: "Rice",
+
+                category: "crop",
+
+                description:
+                    "A staple cereal crop commonly grown in irrigated and flooded agricultural systems.",
+
+                facts:
+                    ["Staple Food", "Cereal", "Irrigation"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39931-424582055_large.mp4"
+            },
+
+
+            {
+                name: "Tomatoes",
+
+                category: "vegetable",
+
+                description:
+                    "A widely cultivated crop consumed fresh or processed into sauces, juices and other foods.",
+
+                facts:
+                    ["Vegetable", "Food", "High Demand"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39936-424583962_large.mp4"
+            },
+
+
+            {
+                name: "Potatoes",
+
+                category: "crop",
+
+                description:
+                    "A versatile tuber crop grown for direct consumption and processing into various food products.",
+
+                facts:
+                    ["Tuber", "Food", "Root Crop"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39929-424581605_large.mp4"
+            },
+
+
+            {
+                name: "Beans",
+
+                category: "crop",
+
+                description:
+                    "Protein-rich legumes used as food while also helping improve soil fertility through nitrogen fixation.",
+
+                facts:
+                    ["Legume", "Protein", "Food"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39934-424583445_large.mp4"
+            },
+
+
+            {
+                name: "Avocado",
+
+                category: "cash",
+
+                description:
+                    "A high-value fruit crop grown for domestic markets and international export.",
+
+                facts:
+                    ["Fruit", "Export", "High Value"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39932-424582405_large.mp4"
+            },
+
+
+            {
+                name: "Bananas",
+
+                category: "crop",
+
+                description:
+                    "A tropical fruit crop grown for food and commercial production in warm regions.",
+
+                facts:
+                    ["Fruit", "Food", "Tropical"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2022/10/27/137329-765743034_large.mp4"
+            },
+
+
+            {
+                name: "Sugarcane",
+
+                category: "cash",
+
+                description:
+                    "An industrial crop cultivated primarily for sugar production and related by-products.",
+
+                facts:
+                    ["Sugar", "Industrial", "Cash Crop"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39933-424582801_large.mp4"
+            },
+
+
+            {
+                name: "Cotton",
+
+                category: "cash",
+
+                description:
+                    "A fiber crop cultivated mainly for textile production and other industrial applications.",
+
+                facts:
+                    ["Fiber", "Textile", "Industrial"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39928-424581284_large.mp4"
+            },
+
+
+            {
+                name: "Dairy Cattle",
+
+                category: "livestock",
+
+                description:
+                    "Cattle raised primarily for milk production and often integrated with crop and forage farming.",
+
+                facts:
+                    ["Milk", "Livestock", "Dairy"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39927-424580957_large.mp4"
+            },
+
+
+            {
+                name: "Poultry",
+
+                category: "livestock",
+
+                description:
+                    "Birds such as chickens are raised commercially for meat and egg production.",
+
+                facts:
+                    ["Eggs", "Meat", "Livestock"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39926-424580649_large.mp4"
+            },
+
+
+            {
+                name: "Fish Farming",
+
+                category: "aquaculture",
+
+                description:
+                    "Fish are raised under controlled conditions for food production, income generation and commercial supply.",
+
+                facts:
+                    ["Aquaculture", "Food", "Commercial"],
+
+                video:
+                    "https://cdn.pixabay.com/video/2020/05/24/39925-424580333_large.mp4"
+            }
+
+        ];
+
+
+        /* =========================================
+           GET PRODUCT LIST
+           ========================================= */
+
+
+        const productList =
+            document.getElementById(
+                "productList"
+            );
+
+
+        /* =========================================
+           GENERATE PRODUCT CARDS
+           ========================================= */
+
+
+        function displayProducts(
+            selectedCategory = "all"
+        ) {
+
+
+            /*
+                Clear the existing cards.
+            */
+
+            productList.innerHTML = "";
+
+
+            /*
+                Filter products according
+                to the selected category.
+            */
+
+            const filteredProducts =
+                products.filter(
+
+                    function (product) {
+
+                        return (
+                            selectedCategory ===
+                            "all"
+
+                            ||
+
+                            product.category ===
+                            selectedCategory
+                        );
+
+                    }
+
+                );
+
+
+            /*
+                Generate a card for
+                every matching product.
+            */
+
+            filteredProducts.forEach(
+
+                function (product) {
+
+
+                    const card =
+                        document.createElement(
+                            "article"
+                        );
+
+
+                    card.className =
+                        "product-card";
+
+
+                    card.dataset.category =
+                        product.category;
+
+
+                    /*
+                        Create the complete
+                        product card.
+                    */
+
+                    card.innerHTML = `
+        
+                                <div class="video-container">
+        
+                                    <span class="video-label">
+                                        ${product.name}
+                                    </span>
+        
+                                    <video
+                                        class="product-video"
+                                        muted
+                                        loop
+                                        playsinline
+                                        preload="metadata">
+        
+                                        <source
+                                            src="${product.video}"
+                                            type="video/mp4">
+        
+                                    </video>
+        
+                                </div>
+        
+        
+                                <div class="product-info">
+        
+                                    <span
+                                        class="product-category">
+        
+                                        ${product.category}
+        
+                                    </span>
+        
+        
+                                    <h2>
+                                        ${product.name}
+                                    </h2>
+        
+        
+                                    <p>
+                                        ${product.description}
+                                    </p>
+        
+        
+                                    <div class="facts">
+        
+                                        ${product.facts.map(
+
+                        function (fact) {
+
+                            return `
+                                                    <span
+                                                        class="fact">
+        
+                                                        ${fact}
+        
+                                                    </span>
+                                                `;
+
+                        }
+
+                    ).join("")}
+        
+                                    </div>
+        
+        
+                                    <button
+                                        class="learn-more">
+        
+                                        Learn More →
+        
+                                    </button>
+        
+                                </div>
+        
+                            `;
+
+
+                    /*
+                        Add the card to
+                        the product list.
+                    */
+
+                    productList.appendChild(card);
+
+                }
+
+            );
+
+
+            /*
+                Activate the scroll
+                animation after cards
+                have been generated.
+            */
+
+            activateCardObserver();
+
+
+            /*
+                Activate video
+                performance control.
+            */
+
+            activateVideoObserver();
+
+        }
+
+
+        /* =========================================
+           CARD SCROLL ANIMATION
+           ========================================= */
+
+
+        function activateCardObserver() {
+
+
+            const observer =
+                new IntersectionObserver(
+
+                    function (entries) {
+
+                        entries.forEach(
+
+                            function (entry) {
+
+                                if (
+                                    entry.isIntersecting
+                                ) {
+
+                                    entry.target
+                                        .classList
+                                        .add(
+                                            "visible"
+                                        );
+
+                                }
+
+                                else {
+
+                                    /*
+                                        Removing the class
+                                        allows the animation
+                                        to happen again when
+                                        scrolling back.
+                                    */
+
+                                    entry.target
+                                        .classList
+                                        .remove(
+                                            "visible"
+                                        );
+
+                                }
+
+                            }
+
+                        );
+
+                    },
+
+                    {
+                        root:
+                            productList,
+
+                        threshold: 0.15
+
+                    }
+
+                );
+
+
+            /*
+                Observe all cards.
+            */
+
+            document
+                .querySelectorAll(
+                    ".product-card"
+                )
+                .forEach(
+
+                    function (card) {
+
+                        observer.observe(card);
+
+                    }
+
+                );
+
+        }
+
+
+        /* =========================================
+           VIDEO PERFORMANCE CONTROL
+           ========================================= */
+
+
+        function activateVideoObserver() {
+
+
+            const videoObserver =
+                new IntersectionObserver(
+
+                    function (entries) {
+
+                        entries.forEach(
+
+                            function (entry) {
+
+                                const video =
+                                    entry.target;
+
+
+                                if (
+                                    entry.isIntersecting
+                                ) {
+
+                                    /*
+                                        Start video
+                                        when visible.
+                                    */
+
+                                    video.play()
+                                        .catch(
+                                            () => { }
+                                        );
+
+                                }
+
+                                else {
+
+                                    /*
+                                        Pause video
+                                        when hidden.
+                                    */
+
+                                    video.pause();
+
+                                }
+
+                            }
+
+                        );
+
+                    },
+
+                    {
+
+                        root:
+                            productList,
+
+                        threshold: 0.25
+
+                    }
+
+                );
+
+
+            /*
+                Monitor all videos.
+            */
+
+            document
+                .querySelectorAll(
+                    ".product-video"
+                )
+                .forEach(
+
+                    function (video) {
+
+                        videoObserver.observe(
+                            video
+                        );
+
+                    }
+
+                );
+
+        }
+
+
+        /* =========================================
+           CATEGORY FILTER
+           ========================================= */
+
+
+        const categoryButtons =
+            document.querySelectorAll(
+                ".category-btn"
+            );
+
+
+        categoryButtons.forEach(
+
+            function (button) {
+
+
+                button.addEventListener(
+
+                    "click",
+
+                    function () {
+
+
+                        /*
+                            Remove active
+                            state from all.
+                        */
+
+                        categoryButtons.forEach(
+
+                            function (btn) {
+
+                                btn.classList
+                                    .remove(
+                                        "active"
+                                    );
+
+                            }
+
+                        );
+
+
+                        /*
+                            Activate selected
+                            category.
+                        */
+
+                        button.classList
+                            .add("active");
+
+
+                        /*
+                            Read category.
+                        */
+
+                        const category =
+                            button.dataset.category;
+
+
+                        /*
+                            Rebuild the
+                            product list.
+                        */
+
+                        displayProducts(
+                            category
+                        );
+
+                    }
+
+                );
+
+            }
+
+        );
+
+
+        /* =========================================
+           INITIALIZE WEBSITE
+           ========================================= */
+
+
+        displayProducts("all");
+
+    </script>
+
+</body>
+
+</html>

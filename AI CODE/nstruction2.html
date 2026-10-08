@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Structures | Luxury Villa Builders</title>
+    <style>
+        /* --- RESET & BASIC STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #121214;
+            /* Deep Matte Charcoal */
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* --- INTERACTIVE BACKGROUND CANVAS --- */
+        #construction-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+            /* Allows users to click buttons through the background */
+        }
+
+        /* Subtle dark overlay to ensure text contrast */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(18, 18, 20, 0.8) 30%, rgba(18, 18, 20, 0.4) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* --- FIXED NAVIGATION --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            background: rgba(18, 18, 20, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ffffff;
+        }
+
+        .logo span {
+            color: #FF9F1C;
+            /* Construction Amber */
+        }
+
+        nav a {
+            color: #a0a0a5;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #FF9F1C;
+        }
+
+        .cta-btn {
+            background-color: #FF9F1C;
+            color: #121214;
+            padding: 12px 25px;
+            border-radius: 4px;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .cta-btn:hover {
+            background-color: #e08b14;
+            transform: translateY(-2px);
+        }
+
+        /* --- FIXED PROGRESS SIDEBAR --- */
+        .progress-tracker {
+            position: fixed;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: rgba(18, 18, 20, 0.9);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #333;
+        }
+
+        .step {
+            font-size: 14px;
+            color: #666;
+            font-weight: 600;
+            transition: color 0.3s, padding-left 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step.active {
+            color: #FF9F1C;
+            padding-left: 5px;
+        }
+
+        .step::before {
+            content: '●';
+            color: #333;
+        }
+
+        .step.active::before {
+            color: #FF9F1C;
+        }
+
+        /* --- SCROLLABLE CONTENT SECTIONS --- */
+        section {
+            position: relative;
+            min-height: 100vh;
+            padding: 0 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            z-index: 5;
+        }
+
+        .content-box {
+            max-width: 600px;
+            background: rgba(18, 18, 20, 0.7);
+            padding: 40px;
+            border-radius: 8px;
+            border-left: 5px solid #FF9F1C;
+            backdrop-filter: blur(5px);
+        }
+
+        h1,
+        h2 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        p {
+            font-size: 16px;
+            color: #d1d1d6;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Custom alignment for alternating narrative impact */
+        section:nth-child(even) {
+            align-items: flex-end;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- INTERACTIVE BACKGROUND -->
+    <canvas id="construction-canvas"></canvas>
+    <div class="overlay"></div>
+
+    <!-- STICKY HEADER -->
+    <header>
+        <div class="logo">Apex<span>Structures</span></div>
+        <nav>
+            <a href="#" class="active">Home</a>
+            <a href="#">Projects</a>
+            <a href="#">Expertise</a>
+            <a href="#">Contact</a>
+        </nav>
+        <a href="#" class="cta-btn">Book Consultation</a>
+    </header>
+
+    <!-- FIXED LIVE TIMELINE PROGRESS DIAL -->
+    <div class="progress-tracker">
+        <div class="step" id="step1">01. Groundwork</div>
+        <div class="step" id="step2">02. Framing</div>
+        <div class="step" id="step3">03. Envelope</div>
+        <div class="step" id="step4">04. Infrastructure</div>
+    </div>
+
+    <!-- HOMEPAGE CONTENT STORYBOARDS (SCROLL TRIGGERS) -->
+    <section id="sec1">
+        <div class="content-box">
+            <h1>We Turn Blueprint Dreams Into Reality.</h1>
+            <p>Scroll down to watch our signature luxury villa come to life from the raw earth up to the final utility
+                grids.</p>
+            <a href="#" class="cta-btn">See Our Portfolio</a>
+        </div>
+    </section>
+
+    <section id="sec2">
+        <div class="content-box">
+            <h2>01. Concrete Foundations</h2>
+            <p>Every masterpiece demands stability. We excavate down to structural bedrock and pour heavy
+                steel-reinforced concrete footers designed to endure for generations.</p>
+        </div>
+    </section>
+
+    <section id="sec3">
+        <div class="content-box">
+            <h2>02. Architectural Framing</h2>
+            <p>Precision-engineered pillars and load-bearing timber wall skeletons scale upwards. This forms the crisp,
+                modern geometric boundaries of your future home.</p>
+        </div>
+    </section>
+
+    <section id="sec4">
+        <div class="content-box">
+            <h2>03. Concrete Walling & Roof</h2>
+            <p>We cast the solid structural walls and lay modern flat-roof slabs. The building envelope seals completely
+                to protect internal configurations from outside weather components.</p>
+        </div>
+    </section>
+
+    <section id="sec5">
+        <div class="content-box">
+            <h2>04. Smart Utilities & Finish</h2>
+            <p>The finale. Copper plumbing routes cleanly behind partitions while safe, fiber-speed electrical lines
+                thread out into illuminated circuits across modern structural glass facades.</p>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE CANVAS ENGINE SCRIPT -->
+    <script>
+        const canvas = document.getElementById('construction-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set high-res canvas scaling
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // SCROLL CONTROLLER ENGINE
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = Math.min(Math.max(scrollTop / docHeight, 0), 1);
+
+            drawVilla(scrollPercent);
+            updateProgressSidebar(scrollPercent);
+        });
+
+        // PROGRESS SIDEBAR UPDATER
+        function updateProgressSidebar(progress) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+
+            if (progress < 0.25) {
+                document.getElementById('step1').classList.add('active');
+            } else if (progress >= 0.25 && progress < 0.55) {
+                document.getElementById('step2').classList.add('active');
+            } else if (progress >= 0.55 && progress < 0.82) {
+                document.getElementById('step3').classList.add('active');
+            } else {
+                document.getElementById('step4').classList.add('active');
+            }
+        }
+
+        // PROCEDURAL REAL-TIME CANVAS DRAWING ENGINE
+        function drawVilla(progress) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Vector Layout Anchors relative to user screen sizing
+            const startX = canvas.width * 0.45;
+            const startY = canvas.height * 0.75;
+            const villaWidth = canvas.width * 0.35;
+            const villaHeight = canvas.height * 0.4;
+
+            // Ground/Soil line base
+            ctx.strokeStyle = '#22252a';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(startX - 100, startY);
+            ctx.lineTo(startX + villaWidth + 100, startY);
+            ctx.stroke();
+
+            // --- PHASE 1: FOUNDATION (Progress 0.0 to 1.0) ---
+            if (progress > 0) 
+            {
+                let fProg = Math.min(progress / 0.25, 1);
+                ctx.fillStyle = '#4A4E59'; // Heavy Concrete Gray
+                ctx.strokeStyle = '#6C7280';
+                ctx.lineWidth = 2;
+
+                // Draw Excavation Block
+                ctx.beginPath();
+                ctx.rect(startX, startY, villaWidth, (villaHeight * 0.1) * fProg);
+            }
+        }
+

@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <!-- Makes the website responsive on phones and tablets -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Featured Products</title>
+
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+        /* =========================================
+           1. BASIC RESET
+        ========================================= */
+
+        /*
+           Removes the browser's default margin and padding.
+
+           box-sizing: border-box makes width/height calculations
+           easier because padding and borders are included
+           inside the element's declared size.
+        */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* =========================================
+           2. BODY
+        ========================================= */
+
+        body {
+            font-family: "DM Sans", sans-serif;
+
+            color: #2b2119;
+
+            /* Warm cream background */
+            background: #f5eee3;
+        }
+
+
+        /* =========================================
+           3. MAIN PRODUCT SECTION
+        ========================================= */
+
+        /*
+           min-height: 100vh means the section will occupy
+           at least 100% of the browser's viewport height.
+
+           100vh = 100% of the visible screen height.
+        */
+
+        .products-section {
+
+            min-height: 100vh;
+
+            width: 100%;
+
+            /*
+               Padding is expressed partly in vh/vw so that
+               the spacing adapts to different screen sizes.
+            */
+            padding: 5vh 3vw;
+
+            /*
+               Flexbox allows us to vertically center the
+               content inside the 100vh section.
+            */
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            /*
+               Prevents cards that extend beyond the section
+               from creating unwanted horizontal scrolling.
+            */
+            overflow: hidden;
+
+
+            /*
+               Creates subtle decorative lighting in the
+               background without using an image.
+            */
+            background:
+
+                radial-gradient(circle at 10% 50%,
+                    rgba(255, 255, 255, .8),
+                    transparent 30%),
+
+                radial-gradient(circle at 90% 40%,
+                    rgba(255, 255, 255, .7),
+                    transparent 30%),
+
+                #f5eee3;
+        }
+
+
+        /* =========================================
+           4. SECTION HEADING
+        ========================================= */
+
+        .section-heading {
+
+            text-align: center;
+
+            /*
+               Space between the heading and product cards.
+            */
+            margin-bottom: 3vh;
+        }
+
+
+        /* Small "OUR COLLECTION" text */
+
+        .section-heading span {
+
+            font-size: .8rem;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            color: #8d7b66;
+        }
+
+
+        /* Main heading */
+
+        .section-heading h1 {
+
+            /*
+               Playfair Display gives the heading the
+               elegant appearance seen in the reference.
+            */
+            font-family: "Playfair Display", serif;
+
+            /*
+               clamp() makes the heading responsive.
+
+               Minimum: 2.5rem
+               Preferred: 4vw
+               Maximum: 4rem
+            */
+            font-size: clamp(2.5rem, 4vw, 4rem);
+
+            line-height: 1.1;
+
+            margin: .7rem 0;
+
+            color: #2b2119;
+        }
+
+
+        /* Heading description */
+
+        .section-heading p {
+
+            font-size: 1rem;
+
+            color: #84776b;
+        }
+
+
+        /* =========================================
+           5. PRODUCT WRAPPER
+        ========================================= */
+
+        /*
+           This contains the cards and navigation arrows.
+
+           position: relative is important because the
+           arrows will be positioned relative to this element.
+        */
+
+        .products-wrapper {
+
+            position: relative;
+
+            width: 100%;
+
+            max-width: 1500px;
+
+            margin: 0 auto;
+        }
+
+
+        /* =========================================
+           6. PRODUCT CONTAINER
+        ========================================= */
+
+        /*
+           Flexbox places the product cards horizontally.
+        */
+
+        .products-container {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            /*
+               Space between the cards.
+            */
+            gap: 1rem;
+
+            width: 100%;
+        }
+
+
+        /* =========================================
+           7. NORMAL PRODUCT CARD
+        ========================================= */
+
+        .product-card {
+
+            /*
+               Each normal card occupies approximately
+               18% of the available container width.
+            */
+            width: 18%;
+
+            min-width: 190px;
+
+            background: rgba(255, 252, 247, .9);
+
+            /*
+               Very subtle border around the cards.
+            */
+            border: 1px solid rgba(120, 100, 75, .12);
+
+            /*
+               Rounded corners.
+            */
+            border-radius: 22px;
+
+            /*
+               Hides anything that extends outside
+               the rounded card.
+            */
+            overflow: hidden;
+
+            /*
+               Soft shadow underneath the card.
+            */
+            box-shadow:
+                0 15px 35px rgba(91, 67, 42, .12);
+
+            /*
+               Makes hover effects smooth.
+            */
+            transition:
+                transform .3s ease,
+                box-shadow .3s ease;
+        }
+
+
+        /* Card hover effect */
+
+        .product-card:hover {
+
+            transform: translateY(-8px);
+
+            box-shadow:
+                0 22px 45px rgba(91, 67, 42, .18);
+        }
+
+
+        /* =========================================
+           8. FEATURED CENTER CARD
+        ========================================= */
+
+        /*
+           The center product is larger than the other
+           products, just like the reference image.
+        */
+
+        .product-card.featured {
+
+            width: 27%;
+
+            min-width: 330px;
+
+            /*
+               Slightly enlarges the card.
+            */
+            transform: scale(1.05);
+
+            /*
+               Places the center card above surrounding
+               cards if they overlap.
+            */
+            z-index: 3;
+
+            box-shadow:
+                0 25px 55px rgba(91, 67, 42, .18);
+        }
+
+
+        /* Hover effect for the featured card */
+
+        .product-card.featured:hover {
+
+            transform:
+                scale(1.07) translateY(-5px);
+        }
+
+
+        /* =========================================
+           9. PRODUCT IMAGE AREA
+        ========================================= */
+
+        .product-image {
+
+            position: relative;
+
+            /*
+               Height of normal product images.
+            */
+            height: 245px;
+
+            background: #f8f2e9;
+
+            overflow: hidden;
+        }
+
+
+        /*
+           Make the featured product image taller.
+        */
+
+        .featured .product-image {
+
+            height: 310px;
+        }
+
+
+        /* Product image */
+
+        .product-image img {
+
+            width: 100%;
+
+            height: 100%;
+
+            /*
+               Makes the image completely fill the
+               image container without distortion.
+            */
+            object-fit: cover;
+
+            display: block;
+
+            /*
+               Allows the image to blend naturally
+               with the cream background.
+            */
+            mix-blend-mode: multiply;
+
+            transition: transform .5s ease;
+        }
+
+
+        /* Slight image zoom when hovering over card */
+
+        .product-card:hover .product-image img {
+
+            transform: scale(1.05);
+        }
+
+
+        /* =========================================
+           10. PRODUCT BADGE
+        ========================================= */
+
+        .badge {
+
+            position: absolute;
+
+            /*
+               Position the badge inside the image.
+            */
+            top: 18px;
+
+            left: 18px;
+
+            z-index: 2;
+
+            padding: 8px 12px;
+
+            border-radius: 8px;
+
+            background: #ead8ba;
+
+            color: #705a3c;
+
+            font-size: .65rem;
+
+            font-weight: 700;
+
+            letter-spacing: .5px;
+        }
+
+
+        /* =========================================
+           11. HEART BUTTON
+        ========================================= */
+
+        .heart {
+
+            /*
+               Absolute positioning allows the heart
+               to sit on top of the product image.
+            */
+            position: absolute;
+
+            top: 15px;
+
+            right: 15px;
+
+            z-index: 2;
+
+            width: 38px;
+
+            height: 38px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, .65);
+
+            color: #4c4036;
+
+            font-size: 1.5rem;
+
+            cursor: pointer;
+
+            transition: .25s;
+        }
+
+
+        /* Heart hover effect */
+
+        .heart:hover {
+
+            background: #d4b17b;
+
+            color: white;
+        }
+
+
+        /* =========================================
+           12. PRODUCT INFORMATION
+        ========================================= */
+
+        .product-info {
+
+            padding: 15px 18px 20px;
+        }
+
+
+        /* =========================================
+           13. PRODUCT DOTS
+        ========================================= */
+
+        /*
+           These dots represent different images/slides
+           for the product.
+        */
+
+        .dots {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .dots span {
+
+            width: 7px;
+
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #e4ddd3;
+        }
+
+
+        /* Active dot */
+
+        .dots span.active {
+
+            background: #b9955b;
+        }
+
+
+        /* =========================================
+           14. PRODUCT TITLE
+        ========================================= */
+
+        .product-info h2 {
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 1.35rem;
+
+            margin-bottom: 7px;
+
+            color: #30251c;
+        }
+
+
+        /* Larger title for featured product */
+
+        .featured .product-info h2 {
+
+            font-size: 1.65rem;
+        }
+
+
+        /* =========================================
+           15. PRODUCT DESCRIPTION
+        ========================================= */
+
+        .product-info p {
+
+            color: #8c8176;
+
+            font-size: .82rem;
+
+            line-height: 1.5;
+
+            /*
+               Keeps product cards relatively equal in height
+               even when descriptions have different lengths.
+            */
+            min-height: 40px;
+        }
+
+
+        /* =========================================
+           16. PRODUCT RATING
+        ========================================= */
+
+        .rating {
+
+            margin-top: 10px;
+
+            font-size: .8rem;
+
+            color: #756a5f;
+        }
+
+
+        /* Gold star */
+
+        .rating span {
+
+            color: #c29440;
+
+            font-size: 1rem;
+        }
+
+
+        /* =========================================
+           17. PRICE + CART AREA
+        ========================================= */
+
+        .bottom {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-top: 15px;
+        }
+
+
+        /* Product price */
+
+        .bottom strong {
+
+            font-size: 1.35rem;
+
+            color: #211910;
+        }
+
+
+        /* =========================================
+           18. SMALL CART BUTTON
+        ========================================= */
+
+        .cart {
+
+            width: 42px;
+
+            height: 42px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: #efe0c3;
+
+            color: #85663c;
+
+            cursor: pointer;
+
+            transition: .25s;
+        }
+
+
+        .cart:hover {
+
+            background: #c39a61;
+
+            color: white;
+        }
+
+
+        /* =========================================
+           19. FEATURED "ADD TO CART" BUTTON
+        ========================================= */
+
+        .add-cart {
+
+            border: none;
+
+            padding: 13px 20px;
+
+            border-radius: 12px;
+
+            background: #c9a878;
+
+            color: white;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: .25s;
+        }
+
+
+        .add-cart:hover {
+
+            background: #aa8759;
+        }
+
+
+        /* =========================================
+           20. LEFT AND RIGHT ARROWS
+        ========================================= */
+
+        /*
+           The arrows are positioned absolutely so that
+           they sit on the left and right sides of the
+           product carousel.
+        */
+
+        .arrow {
+
+            position: absolute;
+
+            top: 50%;
+
+            /*
+               Moves the arrow upward by half its own height,
+               resulting in vertical centering.
+            */
+            transform: translateY(-50%);
+
+            width: 48px;
+
+            height: 48px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, .9);
+
+            color: #55483b;
+
+            font-size: 1.5rem;
+
+            box-shadow:
+                0 5px 15px rgba(70, 50, 30, .1);
+
+            cursor: pointer;
+
+            z-index: 10;
+
+            transition: .25s;
+        }
+
+
+        .arrow:hover {
+
+            background: #c6a16d;
+
+            color: white;
+        }
+
+
+        /* Position left arrow */
+
+        .left-arrow {
+
+            left: -15px;
+        }
+
+
+        /* Position right arrow */
+
+        .right-arrow {
+
+            right: -15px;
+        }
+
+
+        /* =========================================
+           21. BOTTOM PAGINATION
+        ========================================= */
+
+        .pagination {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            margin-top: 4vh;
+        }
+
+
+        .pagination span {
+
+            width: 10px;
+
+            height: 10px;
+
+            border: 2px solid #d5c6b2;
+
+            border-radius: 50%;
+        }
+
+
+        /* Current/active pagination dot */
+
+        .pagination span.active {
+
+            background: #b9955b;
+
+            border-color: #b9955b;
+
+            transform: scale(1.2);
+        }
+
+
+        /* =========================================
+           22. TABLET RESPONSIVENESS
+        ========================================= */
+
+        @media (max-width: 1100px) {
+
+            /*
+               Hide the first and last cards on smaller
+               screens so that the important center products
+               remain visible.
+            */
+
+            .product-card:nth-child(1),
+            .product-card:nth-child(5) {
+
+                display: none;
+            }
+
+
+            .product-card {
+
+                width: 30%;
+
+                min-width: 170px;
+            }
+
+
+            .product-card.featured {
+
+                width: 34%;
+            }
+        }
+
+
+        /* =========================================
+           23. MOBILE RESPONSIVENESS
+        ========================================= */
+
+        @media (max-width: 700px) {
+
+            .products-section {
+
+                padding: 6vh 20px;
+            }
+
+
+            .section-heading h1 {
+
+                font-size: 2.4rem;
+            }
+
+
+            .section-heading p {
+
+                font-size: .9rem;
+            }
+
+
+            /*
+               On mobile, display only the featured card.
+            */
+
+            .product-card:not(.featured) {
+
+                display: none;
+            }
+
+
+            .product-card.featured {
+
+                width: 90%;
+
+                min-width: 0;
+
+                transform: none;
+            }
+
+
+            .product-card.featured:hover {
+
+                transform: translateY(-5px);
+            }
+
+
+            .featured .product-image {
+
+                height: 300px;
+            }
+
+
+            /* Smaller navigation buttons */
+
+            .arrow {
+
+                width: 42px;
+
+                height: 42px;
+            }
+
+
+            .left-arrow {
+
+                left: -5px;
+            }
+
+
+            .right-arrow {
+
+                right: -5px;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         MAIN PRODUCT SECTION
+    ========================================== -->
+
+    <section class="products-section">
+
+
+        <!-- SECTION HEADING -->
+
+        <div class="section-heading">
+
+            <span>OUR COLLECTION</span>
+
+            <h1>Featured Products</h1>
+
+            <p>
+                Explore our most popular items loved by customers
+            </p>
+
+        </div>
+
+
+
+        <!-- =====================================
+             PRODUCT AREA
+        ====================================== -->
+
+        <div class="products-wrapper">
+
+
+            <!-- LEFT NAVIGATION ARROW -->
+
+            <button class="arrow left-arrow">
+                &#10094;
+            </button>
+
+
+
+            <!-- =================================
+                 PRODUCT CARDS
+            ================================== -->
+
+            <div class="products-container">
+
+
+                <!-- PRODUCT 1 -->
+
+                <article class="product-card">
+
+                    <div class="product-image">
+
+                        <span class="badge">
+                            NEW
+                        </span>
+
+                        <button class="heart">
+                            &#9825;
+                        </button>
+
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=700&q=80"
+                            alt="Smart Watch">
+
+                    </div>
+
+
+                    <div class="product-info">
+
+                        <div class="dots">
+
+                            <span class="active"></span>
+                            <span></span>
+                            <span></span>
+
+                        </div>
+
+
+                        <h2>
+                            Smart Watch
+                        </h2>
+
+
+                        <p>
+                            Track your fitness and stay connected.
+                        </p>
+
+
+                        <div class="rating">
+
+                            <span>★</span>
+                            4.6 (89)
+
+                        </div>
+
+
+                        <div class="bottom">
+
+                            <strong>
+                                $89.99
+                            </strong>
+
+                            <button class="cart">
+                                🛒
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- PRODUCT 2 -->
+
+                <article class="product-card">
+
+                    <div class="product-image">
+
+                        <span class="badge">
+                            TRENDING
+                        </span>
+
+                        <button class="heart">
+                            &#9825;
+                        </button>
+
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80"
+                            alt="Running Shoes">
+
+                    </div>
+
+
+                    <div class="product-info">
+
+                        <div class="dots">
+
+                            <span></span>
+                            <span class="active"></span>
+                            <span></span>
+
+                        </div>
+
+
+                        <h2>
+                            Running Shoes
+                        </h2>
+
+
+                        <p>
+                            Lightweight and comfortable for everyday runs.
+                        </p>
+
+
+                        <div class="rating">
+
+                            <span>★</span>
+                            4.7 (98)
+
+                        </div>
+
+
+                        <div class="bottom">
+
+                            <strong>
+                                $99.99
+                            </strong>
+
+                            <button class="cart">
+                                🛒
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =================================
+                     FEATURED CENTER PRODUCT
+                ================================== -->
+
+                <article class="product-card featured">
+
+                    <div class="product-image">
+
+                        <span class="badge">
+                            BEST SELLER
+                        </span>
+
+
+                        <button class="heart">
+                            &#9825;
+                        </button>
+
+
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
+                            alt="Wireless Headphones">
+
+                    </div>
+
+
+                    <div class="product-info">
+
+
+                        <div class="dots">
+
+                            <span class="active"></span>
+                            <span></span>
+                            <span></span>
+
+                        </div>
+
+
+                        <h2>
+                            Wireless Headphones
+                        </h2>
+
+
+                        <p>
+                            High quality sound with premium comfort.
+                        </p>
+
+
+                        <div class="rating">
+
+                            <span>★</span>
+                            4.8 (120)
+
+                        </div>
+
+
+                        <div class="bottom">
+
+                            <strong>
+                                $129.99
+                            </strong>
+
+
+                            <button class="add-cart">
+                                🛒 &nbsp; Add to Cart
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- PRODUCT 4 -->
+
+                <article class="product-card">
+
+                    <div class="product-image">
+
+                        <span class="badge">
+                            POPULAR
+                        </span>
+
+
+                        <button class="heart">
+                            &#9825;
+                        </button>
+
+
+                        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=700&q=80"
+                            alt="DSLR Camera">
+
+                    </div>
+
+
+                    <div class="product-info">
+
+
+                        <div class="dots">
+
+                            <span class="active"></span>
+                            <span></span>
+                            <span></span>
+
+                        </div>
+
+
+                        <h2>
+                            DSLR Camera
+                        </h2>
+
+
+                        <p>
+                            Capture moments with perfect clarity.
+                        </p>
+
+
+                        <div class="rating">
+
+                            <span>★</span>
+                            4.9 (60)
+
+                        </div>
+
+
+                        <div class="bottom">
+
+                            <strong>
+                                $699.99
+                            </strong>
+
+
+                            <button class="cart">
+                                🛒
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- PRODUCT 5 -->
+
+                <article class="product-card">
+
+                    <div class="product-image">
+
+                        <span class="badge">
+                            NEW
+                        </span>
+
+
+                        <button class="heart">
+                            &#9825;
+                        </button>
+
+
+                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=700&q=80"
+                            alt="Travel Backpack">
+
+                    </div>
+
+
+                    <div class="product-info">
+
+
+                        <div class="dots">
+
+                            <span class="active"></span>
+                            <span></span>
+                            <span></span>
+
+                        </div>
+
+
+                        <h2>
+                            Travel Backpack
+                        </h2>
+
+
+                        <p>
+                            Spacious, durable and water resistant.
+                        </p>
+
+
+                        <div class="rating">
+
+                            <span>★</span>
+                            4.5 (75)
+
+                        </div>
+
+
+                        <div class="bottom">
+
+                            <strong>
+                                $59.99
+                            </strong>
+
+
+                            <button class="cart">
+                                🛒
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+
+            <!-- RIGHT NAVIGATION ARROW -->
+
+            <button class="arrow right-arrow">
+                &#10095;
+            </button>
+
+        </div>
+
+
+
+        <!-- =====================================
+             PAGINATION
+        ====================================== -->
+
+        <div class="pagination">
+
+            <span></span>
+
+            <span class="active"></span>
+
+            <span></span>
+
+            <span></span>
+
+            <span></span>
+
+        </div>
+
+
+    </section>
+
+
+</body>
+
+</html>
